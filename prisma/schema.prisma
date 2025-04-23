@@ -1,0 +1,54 @@
+// datasource and generator setup
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ---------------------------------------------------------
+//  ENUMS
+// ---------------------------------------------------------
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  role      UserRole @default(USER)
+
+  isAgreedToTermsCondition Boolean @default(false)
+
+  isPartner Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  partner   Partner?
+
+  @@map("users")
+}
+
+model Partner {
+  id           String @id @default(cuid())
+  profilePhoto String
+  title        String
+
+  pricePerConsultation Float
+  availableDayStart    String
+  availableDayEnd      String
+
+  availableTime Json // [{ availableTimeStart, availableTimeEnd }]
+
+  userEmail String @unique
+  user      User   @relation(fields: [userEmail], references: [email])
+
+  @@map("partners")
+}
