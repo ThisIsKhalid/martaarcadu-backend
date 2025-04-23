@@ -29,9 +29,10 @@ model User {
 
   isPartner Boolean @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  partner   Partner?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  partner       Partner?
+  healthProfile HealthProfile?
 
   @@map("users")
 }
@@ -55,6 +56,8 @@ model Partner {
 
 model HealthProfile {
   id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -71,22 +74,25 @@ model HealthProfile {
   medications Medication[]
 
   // Gastrointestinal History
-  giHistory GIHistory?
+  giHistory        GIHistory?
+  nutritionProfile NutritionProfile?
 }
 
 model Medication {
-  id        String    @id @default(cuid())
+  id        String        @id @default(cuid())
+  profile   HealthProfile @relation(fields: [profileId], references: [id])
+  profileId String
+
   name      String
   dosage    String
   frequency String
   startDate DateTime?
-
-  profile   HealthProfile @relation(fields: [profileId], references: [id])
-  profileId String
 }
 
 model GIHistory {
-  id String @id @default(cuid())
+  id        String        @id @default(cuid())
+  profile   HealthProfile @relation(fields: [profileId], references: [id])
+  profileId String        @unique
 
   // gi clinical history
   pastIssues        String? // acid reflux, constipation, diarrhea, etc.
@@ -117,9 +123,6 @@ model GIHistory {
   diagonesedIntolerances String? // e.g. lactose, gluten
   certifiedAllergies     String? // e.g. peanuts, shellfish, none
   testsPerformed         String? // e.g. skin prick, blood test
-
-  profile   HealthProfile @relation(fields: [profileId], references: [id])
-  profileId String        @unique
 }
 
 enum DIET_TYPE {
@@ -130,7 +133,9 @@ enum DIET_TYPE {
 }
 
 model NutritionProfile {
-  id String @id @default(cuid())
+  id        String        @id @default(cuid())
+  profile   HealthProfile @relation(fields: [profileId], references: [id])
+  profileId String        @unique
 
   dietType      DIET_TYPE?
   otherDietType String? // if dietType is Other
@@ -154,27 +159,53 @@ model NutritionProfile {
   snackTime     String? // e.g. "3:00 PM" 
 
   // lifestyle
-  physicalActivityType String? // e.g. "running", "yoga"
+  physicalActivityType      String? // e.g. "running", "yoga"
   physicalActivityFrequency Int? // e.g. 5 times a week
   physicalActivityDuration  Int? // e.g. 30 minutes
 
-  sleepDuration Int? // e.g. 7 hours
-  sleepQuality  Int? // e.g. 1-10 scale
+  sleepDuration       Int? // e.g. 7 hours
+  sleepQuality        Int? // e.g. 1-10 scale
   specificSleepIssues String? // e.g. insomnia, sleep apnea
 
-  stressLevel Int? // e.g. 1-10 scale
+  stressLevel   Int? // e.g. 1-10 scale
   smokingStatus Boolean? // e.g. true/false
   smokingAmount Int? // e.g. 5 cigarettes/day
 
   // current therapies
-  antibioticsName String? // e.g. "amoxicillin"
+  antibioticsName         String? // e.g. "amoxicillin"
   isRecentlyOnAntibiotics Boolean? // e.g. true/false
-  antibioticsEndDate DateTime? // e.g. "2023-01-01"
+  antibioticsEndDate      DateTime? // e.g. "2023-01-01"
 
   // supplements
-  probioticsName String? // e.g. "Lactobacillus"
+  probioticsName     String? // e.g. "Lactobacillus"
   probioticsMinerals String? // e.g. "zinc, magnesium"
-  prebioticsName String? // e.g. "inulin"
-  vitaminsName String? // e.g. "vitamin D, vitamin C"
+  prebioticsName     String? // e.g. "inulin"
+  vitaminsName       String? // e.g. "vitamin D, vitamin C"
 
+  // primary goal
+  preventiveWellness     String?
+  digestiveOptimization  String?
+  weightManagement       String?
+  sportsPerformance      String?
+  stressBalance          String?
+  postAntibioticRecovery String?
+  immuneSupport          String?
+  womensHealth           String?
+  activeLongevity        String?
+  cardiovascularHealth   String?
+  skinHealth             Boolean? // e.g. true/false
+  urineryTractWellness   Boolean? // e.g. true/false
+
+  //secondary goal
+  secondaryGoal          String[] // e.g. "weight loss, muscle gain"
+  interventionPriorities String[] // e.g. "diet, exercise, supplements"
+  dietary                String[] // e.g. "low-carb, high-protein"
+  supplementation        String[] // e.g. "probiotics, prebiotics"
+  potentialObstacles     String[] // e.g. "time, cost, knowledge"
+  supportNeeded          String[] // e.g. "motivation, accountability"
+
+  notes                             String?
+  isAuthorizeProcessingPersonalData Boolean? // e.g. true/false
+  isConsentPersonalizedService      Boolean? // e.g. true/false
+  isAcceptTermsAndConditions        Boolean? // e.g. true/false
 }
