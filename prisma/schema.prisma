@@ -52,3 +52,129 @@ model Partner {
 
   @@map("partners")
 }
+
+model HealthProfile {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Anthropometric Parameters
+  height Float? // in cm
+  weight Float? // in kg
+  bmi    Float?
+
+  // Current Medical Conditions
+  primaryDiagnosis String?
+  diagnosisDate    DateTime?
+
+  // Medications
+  medications Medication[]
+
+  // Gastrointestinal History
+  giHistory GIHistory?
+}
+
+model Medication {
+  id        String    @id @default(cuid())
+  name      String
+  dosage    String
+  frequency String
+  startDate DateTime?
+
+  profile   HealthProfile @relation(fields: [profileId], references: [id])
+  profileId String
+}
+
+model GIHistory {
+  id String @id @default(cuid())
+
+  // gi clinical history
+  pastIssues        String? // acid reflux, constipation, diarrhea, etc.
+  onsetDate         DateTime?
+  treatmentReceived String? // antacids, PPIs, etc.
+
+  // Family History
+  familyConditions        String? // ulcerative colitis, crohn's disease, etc.
+  otherRelevantConditions String? // e.g. diabetes, hypertension
+  relationshipDegree      String? // e.g. "mother", "father", "sibling"
+
+  // Surgeries
+  surgeryType    String? // e.g. "appendectomy", "cholecystectomy"
+  surgeryOutcome String? // e.g. "successful", "complications"
+  surgeryDate    DateTime?
+
+  // Bowel Function
+  bowelMovementFreq String? // e.g. "daily", "twice weekly"
+  bristolStoolScale Int? // 1-7
+
+  // Symptoms (0-10 scale)
+  bloating            Int?
+  gas                 Int?
+  abdominalPain       Int?
+  digestiveDifficulty Int?
+
+  // Food Sensitivities
+  diagonesedIntolerances String? // e.g. lactose, gluten
+  certifiedAllergies     String? // e.g. peanuts, shellfish, none
+  testsPerformed         String? // e.g. skin prick, blood test
+
+  profile   HealthProfile @relation(fields: [profileId], references: [id])
+  profileId String        @unique
+}
+
+enum DIET_TYPE {
+  Omnivore
+  Vegetarian
+  Vegan
+  Other
+}
+
+model NutritionProfile {
+  id String @id @default(cuid())
+
+  dietType      DIET_TYPE?
+  otherDietType String? // if dietType is Other
+
+  // weekly consumption (portions)
+  vegetables     Int? // e.g. 5
+  animalProteins Int? // e.g. 3
+  fruits         Int? // e.g. 7
+  plantProteins  Int? // e.g. 2
+  wholeGrains    Int? // e.g. 4
+  dairyProducts  Int? // e.g. 2
+
+  // hydration & alcohol
+  water   Int? // e.g. L/day ex: 2L
+  alcohol Int? // e.g. units/week ex: 7 units
+
+  // meal timing
+  breakfastTime String? // e.g. "8:00 AM"
+  lunchTime     String? // e.g. "12:00 PM"
+  dinnerTime    String? // e.g. "7:00 PM"
+  snackTime     String? // e.g. "3:00 PM" 
+
+  // lifestyle
+  physicalActivityType String? // e.g. "running", "yoga"
+  physicalActivityFrequency Int? // e.g. 5 times a week
+  physicalActivityDuration  Int? // e.g. 30 minutes
+
+  sleepDuration Int? // e.g. 7 hours
+  sleepQuality  Int? // e.g. 1-10 scale
+  specificSleepIssues String? // e.g. insomnia, sleep apnea
+
+  stressLevel Int? // e.g. 1-10 scale
+  smokingStatus Boolean? // e.g. true/false
+  smokingAmount Int? // e.g. 5 cigarettes/day
+
+  // current therapies
+  antibioticsName String? // e.g. "amoxicillin"
+  isRecentlyOnAntibiotics Boolean? // e.g. true/false
+  antibioticsEndDate DateTime? // e.g. "2023-01-01"
+
+  // supplements
+  probioticsName String? // e.g. "Lactobacillus"
+  probioticsMinerals String? // e.g. "zinc, magnesium"
+  prebioticsName String? // e.g. "inulin"
+  vitaminsName String? // e.g. "vitamin D, vitamin C"
+
+}
