@@ -105,7 +105,11 @@ const createHealthProfile = async (payload: IHealthProfile) => {
         );
       }
     }
+
+    return healthProfile;
   });
+
+  return result;
 };
 
 const createGIHistory = async (payload: IGIHistory) => {
@@ -114,6 +118,9 @@ const createGIHistory = async (payload: IGIHistory) => {
     const isHealthProfile = await TX.healthProfile.findUnique({
       where: {
         id: payload.profileId,
+      },
+      include: {
+        user: true,
       },
     });
 
@@ -171,7 +178,7 @@ const createGIHistory = async (payload: IGIHistory) => {
 
     await TX.user.update({
       where: {
-        id: payload?.profileId,
+        id: isHealthProfile.user.id,
       },
       data: {
         isDigestiveHistoryBackgroundData: true,
@@ -190,6 +197,9 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
     const isHealthProfile = await TX.healthProfile.findUnique({
       where: {
         id: payload.profileId,
+      },
+      include: {
+        user: true,
       },
     });
 
@@ -271,7 +281,7 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
 
     await prisma.user.update({
       where: {
-        id: payload?.profileId,
+        id: isHealthProfile.user.id,
       },
       data: {
         isDietSensitivitiesHabitsData: true,
@@ -290,6 +300,9 @@ const createGoalsMotivation = async (payload: IGoalsMotivation) => {
     const isHealthProfile = await TX.healthProfile.findUnique({
       where: {
         id: payload.profileId,
+      },
+      include: {
+        user: true,
       },
     });
 
@@ -357,7 +370,7 @@ const createGoalsMotivation = async (payload: IGoalsMotivation) => {
 
     await TX.user.update({
       where: {
-        id: payload?.profileId,
+        id: isHealthProfile.user.id,
       },
       data: {
         isGoalMotivationConsentData: true,
@@ -370,9 +383,33 @@ const createGoalsMotivation = async (payload: IGoalsMotivation) => {
   return result;
 };
 
+// -------------------------------------
+const getHealthProfile = async (userId: string) => {
+  const healthProfile = await prisma.healthProfile.findUnique({
+    where: {
+      userId,
+    },
+    include: {
+      medications: true,
+      giHistory: true,
+      nutritionProfile: true,
+      goalsMotivation: true,
+    },
+  });
+
+  if (!healthProfile) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Health Profile not found");
+  }
+
+  return healthProfile;
+};
+
 export const HealthProfileService = {
   createHealthProfile,
   createGIHistory,
   createNutritionProfile,
   createGoalsMotivation,
+
+  // -------------------------------------
+  getHealthProfile,
 };

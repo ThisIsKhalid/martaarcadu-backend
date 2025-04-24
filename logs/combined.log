@@ -12,3 +12,13 @@
 {"level":"info","message":"Incoming request: POST /api/v1/health-profile","service":"default-service-name","timestamp":"2025-04-24 14:40:07"}
 {"level":"info","message":"Incoming request: POST /api/v1/health-profile","service":"default-service-name","timestamp":"2025-04-24 14:40:29"}
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-24 14:41:45"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile","service":"default-service-name","timestamp":"2025-04-24 17:48:29"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile","service":"default-service-name","timestamp":"2025-04-24 17:55:11"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile","service":"default-service-name","timestamp":"2025-04-24 17:55:16"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile/gi-history","service":"default-service-name","timestamp":"2025-04-24 17:57:08"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile/gi-history","service":"default-service-name","timestamp":"2025-04-24 18:04:15"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile/nutrition-profile","service":"default-service-name","timestamp":"2025-04-24 18:14:11"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile/goals-motivation","service":"default-service-name","timestamp":"2025-04-24 18:15:09"}
+{"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-24 18:17:15"}
+{"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-24 18:18:13"}
+{"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-24 18:18:32"}

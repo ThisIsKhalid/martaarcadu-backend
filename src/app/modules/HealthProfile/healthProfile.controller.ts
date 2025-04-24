@@ -52,9 +52,26 @@ const createGoalsMotivation = catchAsync(
   }
 );
 
+// -------------------------------
+const getHealthProfile = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+
+  const result = await HealthProfileService.getHealthProfile(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Health profile retrieved successfully",
+    data: result,
+  });
+});
+
 export const HealthProfileController = {
   createHealthProfile,
   createGIHistory,
   createNutritionProfile,
   createGoalsMotivation,
+
+  // -------------------------------
+  getHealthProfile,
 };

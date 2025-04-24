@@ -14,4 +14,6 @@ router.put(
 
 router.put("/goals-motivation", HealthProfileController.createGoalsMotivation);
 
+router.get("/:userId", HealthProfileController.getHealthProfile);
+
 export const HealthProfileRoutes = router;
