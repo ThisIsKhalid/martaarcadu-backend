@@ -3,6 +3,15 @@ import { HealthProfileController } from "./healthProfile.controller";
 
 const router = express.Router();
 
-router.post("/", HealthProfileController.createHealthProfile);
+router.put("/", HealthProfileController.createHealthProfile);
+
+router.put("/gi-history", HealthProfileController.createGIHistory);
+
+router.put(
+  "/nutrition-profile",
+  HealthProfileController.createNutritionProfile
+);
+
+router.put("/goals-motivation", HealthProfileController.createGoalsMotivation);
 
 export const HealthProfileRoutes = router;

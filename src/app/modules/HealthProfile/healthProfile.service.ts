@@ -5,7 +5,13 @@
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiErrors";
 import prisma from "../../../shared/prisma";
-import { DIET_TYPE, IHealthProfile } from "./healthProfile.interface";
+import {
+  DIET_TYPE,
+  IGIHistory,
+  IGoalsMotivation,
+  IHealthProfile,
+  INutritionProfile,
+} from "./healthProfile.interface";
 
 const createHealthProfile = async (payload: IHealthProfile) => {
   const result = await prisma.$transaction(async (TX) => {
@@ -99,8 +105,266 @@ const createHealthProfile = async (payload: IHealthProfile) => {
         );
       }
     }
+  });
+};
 
-    return healthProfile;
+const createGIHistory = async (payload: IGIHistory) => {
+  const result = await prisma.$transaction(async (TX) => {
+    // ---------------------------------------
+    const isHealthProfile = await TX.healthProfile.findUnique({
+      where: {
+        id: payload.profileId,
+      },
+    });
+
+    if (!isHealthProfile) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Health Profile not found");
+    }
+
+    // ---------------------------------------
+    const giHistoryData = await TX.gIHistory.upsert({
+      where: {
+        profileId: payload.profileId,
+      },
+      update: {
+        pastIssues: payload.pastIssues,
+        onsetDate: payload.onsetDate,
+        treatmentReceived: payload.treatmentReceived,
+        familyConditions: payload.familyConditions,
+        otherRelevantConditions: payload.otherRelevantConditions,
+        relationshipDegree: payload.relationshipDegree,
+        surgeryType: payload.surgeryType,
+        surgeryOutcome: payload.surgeryOutcome,
+        surgeryDate: payload.surgeryDate,
+        bowelMovementFreq: payload.bowelMovementFreq,
+        bristolStoolScale: payload.bristolStoolScale,
+        bloating: payload.bloating,
+        gas: payload.gas,
+        abdominalPain: payload.abdominalPain,
+        digestiveDifficulty: payload.digestiveDifficulty,
+        diagonesedIntolerances: payload.diagonesedIntolerances,
+        certifiedAllergies: payload.certifiedAllergies,
+        testsPerformed: payload.testsPerformed,
+      },
+      create: {
+        profileId: payload.profileId,
+        pastIssues: payload.pastIssues,
+        onsetDate: payload.onsetDate,
+        treatmentReceived: payload.treatmentReceived,
+        familyConditions: payload.familyConditions,
+        otherRelevantConditions: payload.otherRelevantConditions,
+        relationshipDegree: payload.relationshipDegree,
+        surgeryType: payload.surgeryType,
+        surgeryOutcome: payload.surgeryOutcome,
+        surgeryDate: payload.surgeryDate,
+        bowelMovementFreq: payload.bowelMovementFreq,
+        bristolStoolScale: payload.bristolStoolScale,
+        bloating: payload.bloating,
+        gas: payload.gas,
+        abdominalPain: payload.abdominalPain,
+        digestiveDifficulty: payload.digestiveDifficulty,
+        diagonesedIntolerances: payload.diagonesedIntolerances,
+        certifiedAllergies: payload.certifiedAllergies,
+        testsPerformed: payload.testsPerformed,
+      },
+    });
+
+    await TX.user.update({
+      where: {
+        id: payload?.profileId,
+      },
+      data: {
+        isDigestiveHistoryBackgroundData: true,
+      },
+    });
+
+    return giHistoryData;
+  });
+
+  return result;
+};
+
+const createNutritionProfile = async (payload: INutritionProfile) => {
+  const result = await prisma.$transaction(async (TX) => {
+    // ---------------------------------------
+    const isHealthProfile = await TX.healthProfile.findUnique({
+      where: {
+        id: payload.profileId,
+      },
+    });
+
+    if (!isHealthProfile) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Health Profile not found");
+    }
+
+    // ---------------------------------------
+    const nutritionProfileData = await TX.nutritionProfile.upsert({
+      where: {
+        profileId: payload.profileId,
+      },
+      update: {
+        dietType: payload.dietType,
+        otherDietType: payload.otherDietType,
+        vegetables: payload.vegetables,
+        animalProteins: payload.animalProteins,
+        fruits: payload.fruits,
+        plantProteins: payload.plantProteins,
+        wholeGrains: payload.wholeGrains,
+        dairyProducts: payload.dairyProducts,
+        water: payload.water,
+        alcohol: payload.alcohol,
+        breakfastTime: payload.breakfastTime,
+        lunchTime: payload.lunchTime,
+        dinnerTime: payload.dinnerTime,
+        snackTime: payload.snackTime,
+        physicalActivityType: payload.physicalActivityType,
+        physicalActivityDuration: payload.physicalActivityDuration,
+        physicalActivityFrequency: payload.physicalActivityFrequency,
+        sleepDuration: payload.sleepDuration,
+        sleepQuality: payload.sleepQuality,
+        specificSleepIssues: payload.specificSleepIssues,
+        stressLevel: payload.stressLevel,
+        smokingStatus: payload.smokingStatus,
+        smokingAmount: payload.smokingAmount,
+        antibioticsName: payload.antibioticsName,
+        isRecentlyOnAntibiotics: payload.isRecentlyOnAntibiotics,
+        antibioticsEndDate: payload.antibioticsEndDate,
+        probioticsName: payload.probioticsName,
+        probioticsMinerals: payload.probioticsMinerals,
+        prebioticsName: payload.prebioticsName,
+        vitaminsName: payload.vitaminsName,
+      },
+      create: {
+        profileId: payload.profileId,
+        dietType: payload.dietType,
+        otherDietType: payload.otherDietType,
+        vegetables: payload.vegetables,
+        animalProteins: payload.animalProteins,
+        fruits: payload.fruits,
+        plantProteins: payload.plantProteins,
+        wholeGrains: payload.wholeGrains,
+        dairyProducts: payload.dairyProducts,
+        water: payload.water,
+        alcohol: payload.alcohol,
+        breakfastTime: payload.breakfastTime,
+        lunchTime: payload.lunchTime,
+        dinnerTime: payload.dinnerTime,
+        snackTime: payload.snackTime,
+        physicalActivityType: payload.physicalActivityType,
+        physicalActivityDuration: payload.physicalActivityDuration,
+        physicalActivityFrequency: payload.physicalActivityFrequency,
+        sleepDuration: payload.sleepDuration,
+        sleepQuality: payload.sleepQuality,
+        specificSleepIssues: payload.specificSleepIssues,
+        stressLevel: payload.stressLevel,
+        smokingStatus: payload.smokingStatus,
+        smokingAmount: payload.smokingAmount,
+        antibioticsName: payload.antibioticsName,
+        isRecentlyOnAntibiotics: payload.isRecentlyOnAntibiotics,
+        antibioticsEndDate: payload.antibioticsEndDate,
+        probioticsName: payload.probioticsName,
+        probioticsMinerals: payload.probioticsMinerals,
+        prebioticsName: payload.prebioticsName,
+        vitaminsName: payload.vitaminsName,
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: payload?.profileId,
+      },
+      data: {
+        isDietSensitivitiesHabitsData: true,
+      },
+    });
+
+    return nutritionProfileData;
+  });
+
+  return result;
+};
+
+const createGoalsMotivation = async (payload: IGoalsMotivation) => {
+  const result = await prisma.$transaction(async (TX) => {
+    // ---------------------------------------
+    const isHealthProfile = await TX.healthProfile.findUnique({
+      where: {
+        id: payload.profileId,
+      },
+    });
+
+    if (!isHealthProfile) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Health Profile not found");
+    }
+
+    // ---------------------------------------
+    const goalsMotivationData = await TX.goalsMotivation.upsert({
+      where: {
+        profileId: payload.profileId,
+      },
+      update: {
+        preventiveWellness: payload.preventiveWellness,
+        digestiveOptimization: payload.digestiveOptimization,
+        weightManagement: payload.weightManagement,
+        sportsPerformance: payload.sportsPerformance,
+        stressBalance: payload.stressBalance,
+        postAntibioticRecovery: payload.postAntibioticRecovery,
+        immuneSupport: payload.immuneSupport,
+        womensHealth: payload.womensHealth,
+        activeLongevity: payload.activeLongevity,
+        cardiovascularHealth: payload.cardiovascularHealth,
+        skinHealth: payload.skinHealth,
+        urineryTractWellness: payload.urineryTractWellness,
+        secondaryGoal: payload.secondaryGoal,
+        interventionPriorities: payload.interventionPriorities,
+        dietary: payload.dietary,
+        supplementation: payload.supplementation,
+        potentialObstacles: payload.potentialObstacles,
+        supportNeeded: payload.supportNeeded,
+        notes: payload.notes,
+        isAuthorizeProcessingPersonalData:
+          payload.isAuthorizeProcessingPersonalData,
+        isConsentPersonalizedService: payload.isConsentPersonalizedService,
+        isAcceptTermsAndConditions: payload.isAcceptTermsAndConditions,
+      },
+      create: {
+        profileId: payload.profileId,
+        preventiveWellness: payload.preventiveWellness,
+        digestiveOptimization: payload.digestiveOptimization,
+        weightManagement: payload.weightManagement,
+        sportsPerformance: payload.sportsPerformance,
+        stressBalance: payload.stressBalance,
+        postAntibioticRecovery: payload.postAntibioticRecovery,
+        immuneSupport: payload.immuneSupport,
+        womensHealth: payload.womensHealth,
+        activeLongevity: payload.activeLongevity,
+        cardiovascularHealth: payload.cardiovascularHealth,
+        skinHealth: payload.skinHealth,
+        urineryTractWellness: payload.urineryTractWellness,
+        secondaryGoal: payload.secondaryGoal,
+        interventionPriorities: payload.interventionPriorities,
+        dietary: payload.dietary,
+        supplementation: payload.supplementation,
+        potentialObstacles: payload.potentialObstacles,
+        supportNeeded: payload.supportNeeded,
+        notes: payload.notes,
+        isAuthorizeProcessingPersonalData:
+          payload.isAuthorizeProcessingPersonalData,
+        isConsentPersonalizedService: payload.isConsentPersonalizedService,
+        isAcceptTermsAndConditions: payload.isAcceptTermsAndConditions,
+      },
+    });
+
+    await TX.user.update({
+      where: {
+        id: payload?.profileId,
+      },
+      data: {
+        isGoalMotivationConsentData: true,
+      },
+    });
+
+    return goalsMotivationData;
   });
 
   return result;
@@ -108,4 +372,7 @@ const createHealthProfile = async (payload: IHealthProfile) => {
 
 export const HealthProfileService = {
   createHealthProfile,
+  createGIHistory,
+  createNutritionProfile,
+  createGoalsMotivation,
 };
