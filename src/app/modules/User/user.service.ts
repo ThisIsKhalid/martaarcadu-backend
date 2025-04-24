@@ -20,8 +20,13 @@ const registration = async (userData: IUser) => {
 
   const hashedPassword: string = await bcrypt.hash(userData?.password, 12);
 
+  const randomId = `${userData.firstName.charAt(0)}${userData.lastName.charAt(
+    0
+  )}${Math.floor(Math.random() * 100000000)}`;
+
   const newUser = await prisma.user.create({
     data: {
+      userId: randomId,
       firstName: userData.firstName,
       lastName: userData.lastName,
       email: userData.email,

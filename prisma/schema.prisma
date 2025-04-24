@@ -18,7 +18,9 @@ enum UserRole {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id     String @id @default(cuid())
+  userId String @unique
+
   firstName String
   lastName  String
   email     String   @unique
@@ -74,7 +76,7 @@ model HealthProfile {
   medications Medication[]
 
   // Gastrointestinal History
-  giHistory        GIHistory?
+  giHistory GIHistory?
 
   // Nutrition Profile
   nutritionProfile NutritionProfile?

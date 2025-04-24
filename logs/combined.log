@@ -1,0 +1,5 @@
+{"level":"info","message":"Incoming request: POST /api/v1/health","service":"default-service-name","timestamp":"2025-04-24 11:20:09"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-24 11:20:29"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-24 11:27:38"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-24 11:28:38"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-24 11:28:40"}
