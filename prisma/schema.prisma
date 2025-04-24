@@ -75,6 +75,8 @@ model HealthProfile {
 
   // Gastrointestinal History
   giHistory        GIHistory?
+
+  // Nutrition Profile
   nutritionProfile NutritionProfile?
 }
 
@@ -193,8 +195,8 @@ model NutritionProfile {
   womensHealth           String?
   activeLongevity        String?
   cardiovascularHealth   String?
-  skinHealth             Boolean? // e.g. true/false
-  urineryTractWellness   Boolean? // e.g. true/false
+  skinHealth             String?
+  urineryTractWellness   String?
 
   //secondary goal
   secondaryGoal          String[] // e.g. "weight loss, muscle gain"
