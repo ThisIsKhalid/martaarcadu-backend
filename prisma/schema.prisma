@@ -29,6 +29,11 @@ model User {
 
   isAgreedToTermsCondition Boolean @default(false)
 
+  isPersonalClinicalIdentificationData Boolean @default(false)
+  isDigestiveHistoryBackgroundData     Boolean @default(false)
+  isDietSensitivitiesHabitsData        Boolean @default(false)
+  isGoalMotivationConsentData          Boolean @default(false)
+
   isPartner Boolean @default(false)
 
   createdAt     DateTime       @default(now())
@@ -57,9 +62,10 @@ model Partner {
 }
 
 model HealthProfile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
