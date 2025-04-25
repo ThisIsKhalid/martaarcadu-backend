@@ -29,7 +29,7 @@ model User {
 
   otp          String?
   otpExpiresAt DateTime?
-  isVerified   Boolean @default(false)
+  isVerified   Boolean   @default(false)
 
   isAgreedToTermsCondition Boolean @default(false)
 
@@ -243,23 +243,31 @@ model GoalsMotivation {
   @@map("goals_motivations")
 }
 
-
-
 // ---------------------------------------------------------
 model Product {
-  id        String @id @default(cuid())
-  name      String
-  price     Float
-  discount  Float?
-  category String
+  id          String  @id @default(cuid())
+  name        String
+  price       Float
+  discount    Float?
+  category    String
   description String?
-  imageUrl  String
+  imageUrl    String
 
   isVisible Boolean @default(true)
-  totalSell Int @default(0)
+  totalSell Int     @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("products")
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  publishedAt DateTime @default(now())
+  banner      String
+
+  @@map("blogs")
 }
