@@ -70,9 +70,33 @@ const getMyProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const forgetPassword = catchAsync(async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const result = await AuthServices.forgetPassword(email);
+  sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: "Forget password OTP sent successfully",
+    data: result,
+  });
+});
+
+const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  const { email, otp, password } = req.body;
+  const result = await AuthServices.resetPassword(email, otp, password);
+  sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: "Password reset successfully",
+    data: result,
+  });
+});
+
 export const AuthController = {
   verifyUserByOTP,
   refreshToken,
   loginUser,
   getMyProfile,
+  forgetPassword,
+  resetPassword,
 };
