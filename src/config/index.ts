@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import path from 'path';
+import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({ path: path.join(process.cwd(), ".env") });
 
@@ -38,5 +38,10 @@ export default {
   },
   password: {
     password_salt: process.env.PASSWORD_SALT,
+  },
+  brevo: {
+    email: process.env.BREVO_EMAIL,
+    pass: process.env.BREVO_PASSWORD,
+    api_key: process.env.BREVO_API_KEY,
   },
 };

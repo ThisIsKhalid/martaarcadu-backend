@@ -30,3 +30,7 @@
 {"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:43:46"}
 {"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:44:05"}
 {"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:44:28"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:20:39"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:22:05"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:22:25"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:25:29"}

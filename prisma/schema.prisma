@@ -27,6 +27,10 @@ model User {
   password  String
   role      UserRole @default(USER)
 
+  otp          String?
+  otpExpiresAt DateTime?
+  isVerified   Boolean @default(false)
+
   isAgreedToTermsCondition Boolean @default(false)
 
   isPersonalClinicalIdentificationData Boolean @default(false)
@@ -56,7 +60,7 @@ model Partner {
   availableTime Json // [{ availableTimeStart, availableTimeEnd }]
 
   userId String @unique
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("partners")
 }
