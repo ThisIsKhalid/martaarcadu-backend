@@ -34,3 +34,10 @@
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:22:05"}
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:22:25"}
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 15:25:29"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 16:10:15"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-25 16:11:36"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/auth/verify-otp","service":"default-service-name","timestamp":"2025-04-25 16:13:37"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-25 17:03:02"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-25 17:03:11"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-25 17:06:22"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/auth/verify-otp","service":"default-service-name","timestamp":"2025-04-25 17:06:51"}

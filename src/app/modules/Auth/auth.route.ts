@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post("/login", AuthController.loginUser);
 
+router.patch("/verify-otp", AuthController.verifyUserByOTP);
+
 router.get("/refresh-token", AuthController.refreshToken);
 
 router.get(

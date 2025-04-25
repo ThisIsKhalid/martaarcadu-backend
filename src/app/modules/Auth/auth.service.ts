@@ -2,9 +2,73 @@ import bcrypt from "bcrypt";
 import httpStatus from "http-status";
 import { Secret } from "jsonwebtoken";
 import config from "../../../config";
+import { otpEmail } from "../../../emails/otpEmail";
 import ApiError from "../../../errors/ApiErrors";
+import emailSender from "../../../helpars/emailSender/emailSender";
 import { jwtHelpers } from "../../../helpars/jwtHelpers";
 import prisma from "../../../shared/prisma";
+
+const verifyUserByOTP = async (id: string, otp: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  if (user.otp !== otp) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Invalid OTP");
+  }
+
+  if (!user.otpExpiresAt || user.otpExpiresAt < new Date()) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "OTP expired");
+  }
+
+  await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      isVerified: true,
+      otp: null,
+      otpExpiresAt: null,
+    },
+  });
+
+  const accessToken = jwtHelpers.generateToken(
+    {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      isPartner: user.isPartner,
+      isPersonalClinicalIdentificationData:
+        user.isPersonalClinicalIdentificationData,
+      isDigestiveHistoryBackgroundData: user.isDigestiveHistoryBackgroundData,
+      isDietSensitivitiesHabitsData: user.isDietSensitivitiesHabitsData,
+      isGoalMotivationConsentData: user.isGoalMotivationConsentData,
+    },
+    config.jwt.jwt_secret as Secret,
+    config.jwt.expires_in as string
+  );
+
+  const refreshToken = jwtHelpers.generateToken(
+    {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    },
+    config.jwt.refresh_token_secret as Secret,
+    config.jwt.refresh_token_expires_in as string
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
+};
 
 const refreshToken = async (refreshToken: string) => {
   const decodedToken = jwtHelpers.verifyToken(
@@ -63,37 +127,64 @@ const loginUser = async (payload: { email: string; password: string }) => {
     throw new ApiError(401, "Password is incorrect");
   }
 
-  const accessToken = jwtHelpers.generateToken(
-    {
+  if (userData?.isVerified === false) {
+    const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000);
+
+    await prisma.user.update({
+      where: {
+        id: userData.id,
+      },
+      data: {
+        otp: randomOtp,
+        otpExpiresAt: otpExpiry,
+      },
+    });
+
+    const html = otpEmail(randomOtp);
+
+    await emailSender("OTP", userData.email, html);
+
+    return {
       id: userData.id,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
       email: userData.email,
       role: userData.role,
-      isPartner: userData.isPartner,
-      isPersonalClinicalIdentificationData:
-        userData.isPersonalClinicalIdentificationData,
-      isDigestiveHistoryBackgroundData:
-        userData.isDigestiveHistoryBackgroundData,
-      isDietSensitivitiesHabitsData: userData.isDietSensitivitiesHabitsData,
-      isGoalMotivationConsentData: userData.isGoalMotivationConsentData,
-    },
-    config.jwt.jwt_secret as Secret,
-    config.jwt.expires_in as string
-  );
+    };
+  } else {
+    const accessToken = jwtHelpers.generateToken(
+      {
+        id: userData.id,
+        email: userData.email,
+        role: userData.role,
+        isPartner: userData.isPartner,
+        isPersonalClinicalIdentificationData:
+          userData.isPersonalClinicalIdentificationData,
+        isDigestiveHistoryBackgroundData:
+          userData.isDigestiveHistoryBackgroundData,
+        isDietSensitivitiesHabitsData: userData.isDietSensitivitiesHabitsData,
+        isGoalMotivationConsentData: userData.isGoalMotivationConsentData,
+      },
+      config.jwt.jwt_secret as Secret,
+      config.jwt.expires_in as string
+    );
 
-  const refreshToken = jwtHelpers.generateToken(
-    {
-      id: userData.id,
-      email: userData.email,
-      role: userData.role,
-    },
-    config.jwt.refresh_token_secret as Secret,
-    config.jwt.refresh_token_expires_in as string
-  );
+    const refreshToken = jwtHelpers.generateToken(
+      {
+        id: userData.id,
+        email: userData.email,
+        role: userData.role,
+      },
+      config.jwt.refresh_token_secret as Secret,
+      config.jwt.refresh_token_expires_in as string
+    );
 
-  return {
-    accessToken,
-    refreshToken,
-  };
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
 };
 
 // get user profile
@@ -132,6 +223,7 @@ const getMyProfile = async (userToken: string) => {
 };
 
 export const AuthServices = {
+  verifyUserByOTP,
   refreshToken,
   loginUser,
   getMyProfile,
