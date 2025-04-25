@@ -262,7 +262,6 @@ const resetPassword = async (email: string, otp: string, password: string) => {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
 
-  console.log(user?.otp, otp);
 
   if (user.otp !== otp) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Invalid OTP");
