@@ -22,3 +22,11 @@
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-24 18:17:15"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-24 18:18:13"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-24 18:18:32"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:35:17"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:35:35"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:39:30"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:40:10"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:40:25"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:43:46"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:44:05"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-25 11:44:28"}

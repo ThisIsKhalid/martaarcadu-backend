@@ -3,12 +3,12 @@ type TAvailableTime = {
   availableTimeEnd: string;
 };
 
-export interface Partner {
+export interface IPartner {
   profilePhoto: string;
   title: string;
   pricePerConsultation: number;
   availableDayStart: string;
   availableDayEnd: string;
   availableTime: TAvailableTime[];
-  userEmail: string;
+  userId: string;
 }

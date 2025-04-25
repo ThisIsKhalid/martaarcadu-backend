@@ -55,8 +55,8 @@ model Partner {
 
   availableTime Json // [{ availableTimeStart, availableTimeEnd }]
 
-  userEmail String @unique
-  user      User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  userId String @unique
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("partners")
 }

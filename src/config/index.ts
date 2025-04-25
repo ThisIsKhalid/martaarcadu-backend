@@ -6,9 +6,7 @@ dotenv.config({ path: path.join(process.cwd(), ".env") });
 export default {
   env: process.env.NODE_ENV,
   frontend_url: process.env.FRONTEND_URL,
-  stripe_secret_key: process.env.STRIPE_SECRET_KEY,
-  stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
-  stripe_client_id: process.env.STRIPE_CLIENT_ID,
+  backend_image_url: process.env.BACKEND_IMAGE_URL,
   port: process.env.PORT || 8000,
   jwt: {
     jwt_secret: process.env.JWT_SECRET,
@@ -39,6 +37,6 @@ export default {
     bucketName: process.env.AWS_BUCKET_NAME,
   },
   password: {
-    password_salt: process.env.PASSWORD_SALT
+    password_salt: process.env.PASSWORD_SALT,
   },
 };
