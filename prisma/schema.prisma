@@ -204,6 +204,7 @@ model NutritionProfile {
   probioticsMinerals String? // e.g. "zinc, magnesium"
   prebioticsName     String? // e.g. "inulin"
   vitaminsName       String? // e.g. "vitamin D, vitamin C"
+  otherSupplements   String? // e.g. "fish oil, turmeric"
 
   @@map("nutrition_profiles")
 }

@@ -243,6 +243,7 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
         probioticsMinerals: payload.probioticsMinerals,
         prebioticsName: payload.prebioticsName,
         vitaminsName: payload.vitaminsName,
+        otherSupplements: payload.otherSupplements,
       },
       create: {
         profileId: payload.profileId,
@@ -276,6 +277,7 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
         probioticsMinerals: payload.probioticsMinerals,
         prebioticsName: payload.prebioticsName,
         vitaminsName: payload.vitaminsName,
+        otherSupplements: payload.otherSupplements,
       },
     });
 

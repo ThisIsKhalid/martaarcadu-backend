@@ -82,6 +82,7 @@ export interface INutritionProfile {
   probioticsMinerals?: string;
   prebioticsName?: string;
   vitaminsName?: string;
+  otherSupplements?: string;
 }
 
 export interface IGoalsMotivation {

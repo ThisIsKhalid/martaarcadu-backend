@@ -46,3 +46,13 @@
 {"level":"info","message":"Incoming request: PATCH /api/v1/auth/reset-password","service":"default-service-name","timestamp":"2025-04-25 17:50:42"}
 {"level":"info","message":"Incoming request: PATCH /api/v1/auth/reset-password","service":"default-service-name","timestamp":"2025-04-25 17:51:31"}
 {"level":"info","message":"Incoming request: PATCH /api/v1/auth/reset-password","service":"default-service-name","timestamp":"2025-04-25 17:52:15"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:19:40"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:34:07"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:35:01"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:35:16"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:52:17"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:53:54"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:57:29"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 10:57:52"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 11:01:29"}
+{"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-26 11:07:19"}
