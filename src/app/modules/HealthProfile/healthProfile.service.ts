@@ -207,6 +207,8 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
       throw new ApiError(httpStatus.NOT_FOUND, "Health Profile not found");
     }
 
+    console.log(payload.otherSupplements)
+
     // ---------------------------------------
     const nutritionProfileData = await TX.nutritionProfile.upsert({
       where: {
@@ -221,6 +223,7 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
         plantProteins: payload.plantProteins,
         wholeGrains: payload.wholeGrains,
         dairyProducts: payload.dairyProducts,
+        fermentedFoods: payload.fermentedFoods,
         water: payload.water,
         alcohol: payload.alcohol,
         breakfastTime: payload.breakfastTime,
@@ -255,6 +258,7 @@ const createNutritionProfile = async (payload: INutritionProfile) => {
         plantProteins: payload.plantProteins,
         wholeGrains: payload.wholeGrains,
         dairyProducts: payload.dairyProducts,
+        fermentedFoods: payload.fermentedFoods,
         water: payload.water,
         alcohol: payload.alcohol,
         breakfastTime: payload.breakfastTime,
@@ -331,7 +335,7 @@ const createGoalsMotivation = async (payload: IGoalsMotivation) => {
         skinHealth: payload.skinHealth,
         urineryTractWellness: payload.urineryTractWellness,
         secondaryGoal: payload.secondaryGoal,
-        interventionPriorities: payload.interventionPriorities,
+        interventionPriority: payload.interventionPriority,
         dietary: payload.dietary,
         supplementation: payload.supplementation,
         potentialObstacles: payload.potentialObstacles,
@@ -357,7 +361,7 @@ const createGoalsMotivation = async (payload: IGoalsMotivation) => {
         skinHealth: payload.skinHealth,
         urineryTractWellness: payload.urineryTractWellness,
         secondaryGoal: payload.secondaryGoal,
-        interventionPriorities: payload.interventionPriorities,
+        interventionPriority: payload.interventionPriority,
         dietary: payload.dietary,
         supplementation: payload.supplementation,
         potentialObstacles: payload.potentialObstacles,
