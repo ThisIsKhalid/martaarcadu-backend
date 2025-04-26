@@ -1,3 +1,4 @@
+import { DIET_TYPE } from "@prisma/client";
 import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
@@ -77,15 +78,25 @@ const uploadTestReport = async (data: IUploadTestReport) => {
     contentType: "application/pdf",
   });
 
+  formData.append("entry_date", data?.testDate);
+  formData.append("patient_id", user?.userId);
+
   formData.append("height", healthProfile.height);
   formData.append("weight", healthProfile.weight);
   formData.append("main_diagnoses", healthProfile.primaryDiagnosis);
-  formData.append("diagnosis_date", healthProfile.diagnosisDate);
+  formData.append(
+    "diagnosis_date",
+    healthProfile?.diagnosisDate?.toISOString().split("T")[0]
+  );
 
   // medication jhamela ase
 
   formData.append("past_issues", giHistory?.pastIssues);
-  formData.append("onset_date", giHistory?.onsetDate);
+
+  formData.append(
+    "onset_date",
+    giHistory?.onsetDate?.toISOString().split("T")[0]
+  );
   formData.append("treatments_undertaken", giHistory?.treatmentReceived);
 
   formData.append("gi_conditions", giHistory?.familyConditions);
@@ -97,7 +108,10 @@ const uploadTestReport = async (data: IUploadTestReport) => {
 
   formData.append("surgery_type", giHistory?.surgeryType);
   formData.append("surgery_date", giHistory?.surgeryOutcome);
-  formData.append("surgery_outcome", giHistory?.surgeryDate);
+  formData.append(
+    "surgery_outcome",
+    giHistory?.surgeryDate?.toISOString().split("T")[0]
+  );
 
   formData.append("evacuation_frequency", giHistory?.bowelMovementFreq);
   formData.append("bristol_scale", giHistory?.bristolStoolScale);
@@ -109,10 +123,14 @@ const uploadTestReport = async (data: IUploadTestReport) => {
 
   formData.append("diagnosed_intolerances", giHistory?.diagonesedIntolerances);
   formData.append("certified_allergies", giHistory?.certifiedAllergies);
+
   formData.append("tests_performed", giHistory?.testsPerformed);
 
   formData.append("diet_type", nutritionProfile?.dietType);
-  formData.append("other_diet", nutritionProfile?.otherDietType);
+
+  if (nutritionProfile?.dietType === DIET_TYPE.Other) {
+    formData.append("other_diet", nutritionProfile?.otherDietType);
+  }
 
   formData.append("vegetable_portions", nutritionProfile?.vegetables);
   formData.append("animal_proteins", nutritionProfile?.animalProteins);
@@ -120,6 +138,7 @@ const uploadTestReport = async (data: IUploadTestReport) => {
   formData.append("plant_proteins", nutritionProfile?.plantProteins);
   formData.append("whole_grains", nutritionProfile?.wholeGrains);
   formData.append("dairy_products", nutritionProfile?.dairyProducts);
+  formData.append("fermented_foods", nutritionProfile?.fermentedFoods);
 
   formData.append("water_consumption", nutritionProfile?.water);
   formData.append("alcohol_consumption", nutritionProfile?.alcohol);
@@ -148,14 +167,20 @@ const uploadTestReport = async (data: IUploadTestReport) => {
 
   formData.append("stress_level", nutritionProfile?.stressLevel);
   formData.append("smoking", nutritionProfile?.smokingStatus);
-  formData.append("smoking_quantity", nutritionProfile?.smokingAmount);
+
+  if (nutritionProfile?.smokingStatus === true) {
+    formData.append("smoking_quantity", nutritionProfile?.smokingAmount);
+  }
 
   formData.append("antibiotic_name", nutritionProfile?.antibioticsName);
   formData.append(
     "recent_antibiotics",
     nutritionProfile?.isRecentlyOnAntibiotics
   );
-  formData.append("end_of_therapy_date", nutritionProfile?.antibioticsEndDate);
+  formData.append(
+    "end_of_therapy_date",
+    nutritionProfile?.antibioticsEndDate?.toISOString().split("T")[0]
+  );
 
   formData.append("probiotics", nutritionProfile?.probioticsName);
   formData.append("minerals", nutritionProfile?.probioticsMinerals);
@@ -163,21 +188,68 @@ const uploadTestReport = async (data: IUploadTestReport) => {
   formData.append("vitamins", nutritionProfile?.vitaminsName);
   formData.append("other_supplements", nutritionProfile?.otherSupplements);
 
-  // gihisitory jhamela
+  formData.append("preventiveWellness", goalsMotivation?.preventiveWellness);
+  formData.append(
+    "digestiveOptimization",
+    goalsMotivation?.digestiveOptimization
+  );
+  formData.append("weightManagement", goalsMotivation?.weightManagement);
+  formData.append("sportsPerformance", goalsMotivation?.sportsPerformance);
+  formData.append("stressBalance", goalsMotivation?.stressBalance);
+  formData.append(
+    "postAntibioticRecovery",
+    goalsMotivation?.postAntibioticRecovery
+  );
+
+  formData.append("immuneSupport", goalsMotivation?.immuneSupport);
+  formData.append("womensHealth", goalsMotivation?.womensHealth);
+  formData.append("activeLongevity", goalsMotivation?.activeLongevity);
+  formData.append(
+    "cardiovascularHealth",
+    goalsMotivation?.cardiovascularHealth
+  );
+
+  formData.append("skinHealth", goalsMotivation?.skinHealth);
+  formData.append(
+    "urineryTractWellness",
+    goalsMotivation?.urineryTractWellness
+  );
+
+  formData.append(
+    "secondary_goals",
+    JSON.stringify(goalsMotivation?.secondaryGoal)
+  );
+  formData.append(
+    "intervention_priority",
+    goalsMotivation?.interventionPriority
+  );
+
+  formData.append("dietary", goalsMotivation?.dietary);
+  formData.append("supplementation", goalsMotivation?.supplementation);
+  formData.append(
+    "potential_obstacles",
+    JSON.stringify(goalsMotivation?.potentialObstacles)
+  );
+  formData.append(
+    "support_needed",
+    JSON.stringify(goalsMotivation?.supportNeeded)
+  );
 
   // --------------------------------
 
   try {
-    const response = await axios.post(
-      "http://10.0.10.35:8001/api/extract-and-analyze-form/",
-      formData,
-      {
-        headers: formData.getHeaders(),
-      }
-    );
-    console.log("Response:--------", response.data);
+    console.log("Start uploading test report------------------");
+  const response = await axios.post(
+    "http://10.0.10.35:8001/api/extract-and-analyze-form/",
+    formData,
+    {
+      headers: formData.getHeaders(),
+      timeout: 30000000, 
+    }
+  );
+    console.log("Response:--------", response);
   } catch (error: any) {
-    console.error("Error details:", error.response.data.detail);
+    console.error("Error details:", error);
     throw new Error("Failed to upload test report.");
   }
 };

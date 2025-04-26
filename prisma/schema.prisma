@@ -170,6 +170,7 @@ model NutritionProfile {
   plantProteins  Int? // e.g. 2
   wholeGrains    Int? // e.g. 4
   dairyProducts  Int? // e.g. 2
+  fermentedFoods Int? // e.g. 3
 
   // hydration & alcohol
   water   Int? // e.g. L/day ex: 2L

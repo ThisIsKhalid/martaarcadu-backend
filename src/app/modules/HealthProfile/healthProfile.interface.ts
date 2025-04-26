@@ -60,6 +60,7 @@ export interface INutritionProfile {
   plantProteins?: number;
   wholeGrains?: number;
   dairyProducts?: number;
+  fermentedFoods?: number;
   water?: number;
   alcohol?: number;
   breakfastTime?: string;
