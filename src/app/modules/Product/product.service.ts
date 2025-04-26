@@ -1,5 +1,8 @@
+import { Prisma } from "@prisma/client";
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiErrors";
+import { paginationHelpers } from "../../../helpars/paginationHelper";
+import { IPaginationOptions } from "../../../interfaces/paginations";
 import prisma from "../../../shared/prisma";
 import { IProduct } from "./product.interface";
 
@@ -51,19 +54,82 @@ const deleteProduct = async (id: string) => {
   };
 };
 
-const getAllProducts = async () => {
-  return await prisma.product.findMany();
+const getAllProducts = async (
+  filters: {
+    searchTerm?: string;
+  },
+  options: IPaginationOptions
+) => {
+  const { searchTerm } = filters;
+  const { page, skip, limit, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(options);
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: ["name", "category"].map((field) => ({
+        [field]: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  const whereConditions: Prisma.ProductWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const product = await prisma.product.findMany({
+    where: {
+      ...whereConditions,
+    },
+    skip,
+    take: limit,
+    orderBy:
+      sortBy && sortOrder
+        ? { [sortBy]: sortOrder }
+        : {
+            createdAt: "desc",
+          },
+  });
+
+  const total = await prisma.product.count({
+    where: {
+      ...whereConditions,
+    },
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: product,
+  };
 };
 
-const getSingleProduct = async (id: string) => {
-  return await prisma.product.findUnique({
+const updateVisibility = async (id: string, isVisible: boolean) => {
+  const product = await prisma.product.findUnique({
     where: { id },
   });
+
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
+  }
+
+  const updatedProduct = await prisma.product.update({
+    where: { id },
+    data: { isVisible },
+  });
+
+  return updatedProduct;
 };
+
 
 export const ProductService = {
   createProduct,
   deleteProduct,
   getAllProducts,
-  getSingleProduct,
 };

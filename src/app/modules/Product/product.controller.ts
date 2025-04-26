@@ -31,29 +31,19 @@ const getAllProducts = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, ["searchTerm"]);
   const options = pick(req.query, paginationFields);
 
-  const products = await ProductService.getAllProducts();
+  const products = await ProductService.getAllProducts(filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Products retrieved successfully",
-    data: products,
+    meta: products.meta,
+    data: products.data,
   });
 });
 
-const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const product = await ProductService.getSingleProduct(id);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Product retrieved successfully",
-    data: product,
-  });
-});
 
 export const ProductController = {
   productCreate,
   productDelete,
   getAllProducts,
-  getSingleProduct,
 };
