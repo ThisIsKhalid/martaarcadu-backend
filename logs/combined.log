@@ -156,3 +156,10 @@
 {"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 17:55:56"}
 {"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 17:57:13"}
 {"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:00:16"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:14:48"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:20:55"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:34:18"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile/nutrition-profile","service":"default-service-name","timestamp":"2025-04-26 18:37:45"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:37:52"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:40:47"}
+{"level":"info","message":"Incoming request: POST /api/v1/test-report/upload-test-report","service":"default-service-name","timestamp":"2025-04-26 18:49:16"}
