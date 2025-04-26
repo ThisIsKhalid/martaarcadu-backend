@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
+import { paginationFields } from "../../../constants/pagination";
 import catchAsync from "../../../shared/catchAsync";
+import pick from "../../../shared/pick";
 import sendResponse from "../../../shared/sendResponse";
 import { ProductService } from "./product.service";
 
@@ -10,17 +12,6 @@ const productCreate = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.CREATED,
     success: true,
     message: "Product created successfully",
-    data: product,
-  });
-});
-
-const productUpdate = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const product = await ProductService.updateProduct(id, req.body);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Product updated successfully",
     data: product,
   });
 });
@@ -37,6 +28,9 @@ const productDelete = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ["searchTerm"]);
+  const options = pick(req.query, paginationFields);
+
   const products = await ProductService.getAllProducts();
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -59,7 +53,6 @@ const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
 
 export const ProductController = {
   productCreate,
-  productUpdate,
   productDelete,
   getAllProducts,
   getSingleProduct,
