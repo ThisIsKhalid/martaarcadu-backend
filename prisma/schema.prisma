@@ -230,9 +230,9 @@ model GoalsMotivation {
 
   //secondary goal
   secondaryGoal          String[] // e.g. "weight loss, muscle gain"
-  interventionPriorities String[] // e.g. "diet, exercise, supplements"
-  dietary                String[] // e.g. "low-carb, high-protein"
-  supplementation        String[] // e.g. "probiotics, prebiotics"
+  interventionPriority String? // e.g. high, medium, low
+  dietary                String? // e.g. high, medium, low
+  supplementation        String? // e.g. high, medium, low
   potentialObstacles     String[] // e.g. "time, cost, knowledge"
   supportNeeded          String[] // e.g. "motivation, accountability"
 

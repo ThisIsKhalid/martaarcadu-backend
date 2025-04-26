@@ -60,3 +60,4 @@
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-26 12:57:24"}
 {"level":"info","message":"Incoming request: PUT /api/v1/health-profile/goals-motivation","service":"default-service-name","timestamp":"2025-04-26 12:59:12"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9v42io40000ijubfun3aglo","service":"default-service-name","timestamp":"2025-04-26 12:59:15"}
+{"level":"info","message":"Incoming request: PUT /api/v1/health-profile/goals-motivation","service":"default-service-name","timestamp":"2025-04-26 16:06:03"}
