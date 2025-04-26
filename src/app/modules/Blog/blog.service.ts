@@ -5,6 +5,7 @@ import prisma from "../../../shared/prisma";
 import { IBlog } from "./blog.interface";
 import httpStatus from "http-status";
 import { paginationHelpers } from "../../../helpars/paginationHelper";
+import getBlogStats from "../../../helpars/readBlogTime";
 
 const createBlog = async (blogData: IBlog) => {
 
@@ -76,7 +77,7 @@ const getAllBlogs = async (  filters: {
   const whereConditions: Prisma.BlogWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
 
-  const blog = await prisma.blog.findMany({
+  const blogs = await prisma.blog.findMany({
     where: {
       ...whereConditions,
     },
@@ -96,13 +97,22 @@ const getAllBlogs = async (  filters: {
     },
   });
 
+  const blogsWithStats = blogs.map((blog) => {
+    const stats = getBlogStats(blog.content);
+    return {
+      ...blog,
+      // wordCount: stats.wordCount,
+      readingTime: stats.readingTime,
+    };
+  });
+
   return {
     meta: {
       page,
       limit,
       total,
     },
-    data: blog,
+    data: blogsWithStats,
   };
 };
 
