@@ -60,6 +60,7 @@ export interface INutritionProfile {
   plantProteins?: number;
   wholeGrains?: number;
   dairyProducts?: number;
+  fermentedFoods?: number;
   water?: number;
   alcohol?: number;
   breakfastTime?: string;
@@ -101,9 +102,9 @@ export interface IGoalsMotivation {
   skinHealth?: string;
   urineryTractWellness?: string;
   secondaryGoal?: string[];
-  interventionPriorities?: string[];
-  dietary?: string[];
-  supplementation?: string[];
+  interventionPriority?: string;
+  dietary?: string;
+  supplementation?: string;
   potentialObstacles?: string[];
   supportNeeded?: string[];
   notes?: string;
