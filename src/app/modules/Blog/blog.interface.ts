@@ -1,7 +1,10 @@
 export interface IBlog {
   id?: string;
-  title: string;
   content: string;
-  publishedAt?: Date;
+  category: string;
+  title: string;
+  published?: Date;
   banner: string;
 }
+
+
