@@ -28,6 +28,33 @@ const createPartnerAcc = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const getAllPartner = catchAsync(async (req: Request, res: Response) => {
+  const result = await PartnerService.getAllPartner()
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Partner retrieved successfully",
+    data: result,
+  });
+})
+
+const getSinglePartner = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PartnerService.getSinglePartner(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Partner retrieved successfully",
+    data: result,
+  });
+})
+
 export const PartnerController = {
   createPartnerAcc,
+  getAllPartner,
+  getSinglePartner
 };

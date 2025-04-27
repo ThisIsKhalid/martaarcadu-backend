@@ -251,6 +251,7 @@
 {"level":"info","message":"Incoming request: GET /api/v1/blog/?sortOrder=desc","service":"default-service-name","timestamp":"2025-04-27 10:45:09"}
 {"level":"info","message":"Incoming request: POST /api/v1/blog","service":"default-service-name","timestamp":"2025-04-27 10:45:15"}
 {"level":"info","message":"Incoming request: GET /api/v1/blog/?sortOrder=desc","service":"default-service-name","timestamp":"2025-04-27 10:45:19"}
+<<<<<<< HEAD
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 11:15:08"}
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 11:17:47"}
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 11:18:00"}
@@ -407,3 +408,42 @@
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9zgz0vb000jijq5fx7zodw5","service":"default-service-name","timestamp":"2025-04-27 16:01:00"}
 {"level":"info","message":"Incoming request: PUT /api/v1/health-profile","service":"default-service-name","timestamp":"2025-04-27 16:01:13"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9zgz0vb000jijq5fx7zodw5","service":"default-service-name","timestamp":"2025-04-27 16:01:13"}
+=======
+{"level":"info","message":"Incoming request: GET /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 11:44:57"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 11:47:07"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-27 11:52:07"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-27 11:52:11"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-27 11:55:43"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-27 11:56:02"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 11:56:17"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-27 11:56:32"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 11:58:39"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 11:59:35"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 11:59:44"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 11:59:56"}
+{"level":"info","message":"Incoming request: GET /api/v1/product","service":"default-service-name","timestamp":"2025-04-27 12:18:25"}
+{"level":"info","message":"Incoming request: POST /api/v1/product","service":"default-service-name","timestamp":"2025-04-27 12:18:53"}
+{"level":"info","message":"Incoming request: POST /api/v1/product","service":"default-service-name","timestamp":"2025-04-27 12:20:05"}
+{"level":"info","message":"Incoming request: POST /api/v1/product","service":"default-service-name","timestamp":"2025-04-27 12:22:14"}
+{"level":"info","message":"Incoming request: GET /api/v1/product","service":"default-service-name","timestamp":"2025-04-27 12:22:58"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 12:24:00"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 12:33:08"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 12:33:16"}
+{"level":"info","message":"Incoming request: DELETE /api/v1/cart/cm9z9w9s70001tc5c0pxggkj2","service":"default-service-name","timestamp":"2025-04-27 12:34:09"}
+{"level":"info","message":"Incoming request: DELETE /api/v1/cart/cm9z9w9s70001tc5c0pxggkj2","service":"default-service-name","timestamp":"2025-04-27 12:34:25"}
+{"level":"info","message":"Incoming request: DELETE /api/v1/cart/cm9z9w9s70001tc5c0pxggkj2","service":"default-service-name","timestamp":"2025-04-27 12:36:11"}
+{"level":"info","message":"Incoming request: DELETE /api/v1/cart/cm9z9w9s70001tc5c0pxggkj2","service":"default-service-name","timestamp":"2025-04-27 12:37:47"}
+{"level":"info","message":"Incoming request: DELETE /api/v1/cart/cm9z9w9s70001tc5c0pxggkj2","service":"default-service-name","timestamp":"2025-04-27 12:38:15"}
+{"level":"info","message":"Incoming request: POST /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 12:38:32"}
+{"level":"info","message":"Incoming request: DELETE /api/v1/cart/cm9za37eo0001tc8o2e8nhp2u","service":"default-service-name","timestamp":"2025-04-27 12:38:39"}
+{"level":"info","message":"Incoming request: GET /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 12:41:33"}
+{"level":"info","message":"Incoming request: GET /api/v1/cart","service":"default-service-name","timestamp":"2025-04-27 12:59:56"}
+{"level":"info","message":"Incoming request: GET /favicon.ico","service":"default-service-name","timestamp":"2025-04-27 15:16:27"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:16:45"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:17:04"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:17:46"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:17:50"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:37:10"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner/cm9zf5xsy000aijq5vcshxtxr","service":"default-service-name","timestamp":"2025-04-27 15:37:27"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 17:11:33"}
+>>>>>>> 87c05524aa9f3cd1c3c0461ccee447f19d857fda

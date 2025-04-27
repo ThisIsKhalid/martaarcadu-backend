@@ -12,5 +12,7 @@ const upload = multer({
 const imageUpload = upload.single("profilePhoto");
 
 router.post("/", imageUpload, PartnerController.createPartnerAcc);
+router.get("/", PartnerController.getAllPartner);
+router.get("/:id", PartnerController.getSinglePartner);
 
 export const PartnerRoutes = router;
