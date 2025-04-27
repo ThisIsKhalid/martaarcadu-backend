@@ -17,6 +17,12 @@ enum UserRole {
   ADMIN
 }
 
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+}
+
 model User {
   id     String @id @default(cuid())
   userId String @unique
@@ -44,8 +50,8 @@ model User {
   updatedAt     DateTime       @updatedAt
   partner       Partner?
   healthProfile HealthProfile?
-  carts          Cart[]
-
+  carts         Cart[]
+  appointments  Appointment[]
 
   @@map("users")
 }
@@ -61,8 +67,9 @@ model Partner {
 
   availableTime Json // [{ availableTimeStart, availableTimeEnd }]
 
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String        @unique
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
 
   @@map("partners")
 }
@@ -232,12 +239,12 @@ model GoalsMotivation {
   urineryTractWellness   String?
 
   //secondary goal
-  secondaryGoal          String[] // e.g. "weight loss, muscle gain"
+  secondaryGoal        String[] // e.g. "weight loss, muscle gain"
   interventionPriority String? // e.g. high, medium, low
-  dietary                String? // e.g. high, medium, low
-  supplementation        String? // e.g. high, medium, low
-  potentialObstacles     String[] // e.g. "time, cost, knowledge"
-  supportNeeded          String[] // e.g. "motivation, accountability"
+  dietary              String? // e.g. high, medium, low
+  supplementation      String? // e.g. high, medium, low
+  potentialObstacles   String[] // e.g. "time, cost, knowledge"
+  supportNeeded        String[] // e.g. "motivation, accountability"
 
   notes                             String?
   isAuthorizeProcessingPersonalData Boolean? // e.g. true/false
@@ -260,7 +267,7 @@ model Product {
 
   isVisible Boolean @default(true)
   totalSell Int     @default(0)
-  carts          Cart[]
+  carts     Cart[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -269,28 +276,46 @@ model Product {
 }
 
 model Blog {
-  id          String   @id @default(cuid())
-  title       String
-  category    String
-  content     String
-  published   DateTime?
-  banner      String
+  id        String    @id @default(cuid())
+  title     String
+  category  String
+  content   String
+  published DateTime?
+  banner    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@map("blogs")
 }
 
-model Cart{
+model Cart {
   id        String @id @default(cuid())
   userId    String
   productId String
-  quantity Int @default(1)
-  
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int    @default(1)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("carts")
+}
+
+model Appointment {
+  id        String            @id @default(cuid())
+  partnerId String
+  patientId String      // ---> userId
+  date      DateTime
+  timeSlot  String
+  status    AppointmentStatus @default(PENDING)
+
+  user    User    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("appointments")
 }

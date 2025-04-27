@@ -287,3 +287,4 @@
 {"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:17:50"}
 {"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-27 15:37:10"}
 {"level":"info","message":"Incoming request: GET /api/v1/partner/cm9zf5xsy000aijq5vcshxtxr","service":"default-service-name","timestamp":"2025-04-27 15:37:27"}
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 17:11:33"}
