@@ -21,6 +21,11 @@ export default {
     email: process.env.EMAIL,
     app_pass: process.env.APP_PASS,
   },
+  stripe: {
+    stripe_secret_key: process.env.STRIPE_SECRET_KEY,
+    stripe_webhook_secret: process.env.STRIPE_WEBHOOK_SECRET,
+    stripe_public_key: process.env.STRIPE_PUBLIC_KEY,
+  },
   paypal: {
     client_id: process.env.PAYPEL_CLIENT_ID,
     client_secret: process.env.PAYPAL_CLIENT_SECRET,

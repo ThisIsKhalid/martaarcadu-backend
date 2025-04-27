@@ -507,3 +507,4 @@
 {"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-27 19:41:01"}
 {"level":"info","message":"Incoming request: PATCH /api/v1/appointment/cm9znygo70001tclobsnem91h","service":"default-service-name","timestamp":"2025-04-27 19:41:43"}
 {"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-27 19:41:50"}
+{"level":"info","message":"Incoming request: GET /favicon.ico","service":"default-service-name","timestamp":"2025-04-27 21:12:01"}
