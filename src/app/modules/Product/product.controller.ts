@@ -5,9 +5,24 @@ import catchAsync from "../../../shared/catchAsync";
 import pick from "../../../shared/pick";
 import sendResponse from "../../../shared/sendResponse";
 import { ProductService } from "./product.service";
+import ApiError from "../../../errors/ApiErrors";
+import config from "../../../config";
 
 const productCreate = catchAsync(async (req: Request, res: Response) => {
-  const product = await ProductService.createProduct(req.body);
+  const { file, body } = req;
+
+  if (!file) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Product photo is required");
+  }
+
+  const data = {
+    ...body,
+    imageUrl: `${config.backend_image_url}/product/${file.filename}`,
+  };
+
+
+
+  const product = await ProductService.createProduct(data);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
