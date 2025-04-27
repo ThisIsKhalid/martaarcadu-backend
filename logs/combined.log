@@ -447,3 +447,11 @@
 {"level":"info","message":"Incoming request: GET /api/v1/partner/cm9zf5xsy000aijq5vcshxtxr","service":"default-service-name","timestamp":"2025-04-27 15:37:27"}
 {"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-27 17:11:33"}
 >>>>>>> 87c05524aa9f3cd1c3c0461ccee447f19d857fda
+{"level":"info","message":"Incoming request: POST /api/v1/appointment","service":"default-service-name","timestamp":"2025-04-27 17:53:48"}
+{"level":"info","message":"Incoming request: POST /api/v1/appointment","service":"default-service-name","timestamp":"2025-04-27 17:53:53"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-27 17:54:37"}
+{"level":"info","message":"Incoming request: POST /api/v1/appointment","service":"default-service-name","timestamp":"2025-04-27 17:57:44"}
+{"level":"info","message":"Incoming request: POST /api/v1/appointment","service":"default-service-name","timestamp":"2025-04-27 17:57:49"}
+{"level":"info","message":"Incoming request: POST /api/v1/appointment","service":"default-service-name","timestamp":"2025-04-27 17:58:02"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-27 17:58:10"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-27 17:58:12"}
