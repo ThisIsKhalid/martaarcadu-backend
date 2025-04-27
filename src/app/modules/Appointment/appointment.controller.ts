@@ -22,7 +22,7 @@ const createAppointment = catchAsync(async (req: Request, res: Response) => {
 
 const partnarAppointment = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const filters = pick(req.query, ["searchTerm"]);
+    const filters = pick(req.query, ["searchTerm", "date"]);
     const options = pick(req.query, paginationFields);
 
     const appointment = await AppointmentService.getPartnarAppointment(id, filters, options);
@@ -30,13 +30,44 @@ const partnarAppointment = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: "Appintment created successfully",
+        message: "Partner appintment successfully",
         data: appointment,
       });
 });
 
 
+const patientAppointment = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const filters = pick(req.query, ["searchTerm", "date"]);
+    const options = pick(req.query, paginationFields);
+
+    const appointment = await AppointmentService.getPartientAppointment(id, filters, options);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Patient appintment successfully",
+        data: appointment,
+      });
+});
+
+const updateStatus = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const appointment = await AppointmentService.updateStatus(id, req.body)
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Update appintment successfully",
+        data: appointment,
+      });
+})
+
+
 export const AppointmentController = {
     createAppointment,
-    partnarAppointment
+    partnarAppointment,
+    patientAppointment,
+    updateStatus
 }
