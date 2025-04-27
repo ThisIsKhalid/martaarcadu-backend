@@ -44,11 +44,6 @@ const verifyUserByOTP = async (id: string, otp: string) => {
       email: user.email,
       role: user.role,
       isPartner: user.isPartner,
-      isPersonalClinicalIdentificationData:
-        user.isPersonalClinicalIdentificationData,
-      isDigestiveHistoryBackgroundData: user.isDigestiveHistoryBackgroundData,
-      isDietSensitivitiesHabitsData: user.isDietSensitivitiesHabitsData,
-      isGoalMotivationConsentData: user.isGoalMotivationConsentData,
     },
     config.jwt.jwt_secret as Secret,
     config.jwt.expires_in as string
@@ -204,6 +199,7 @@ const getMyProfile = async (userToken: string) => {
       lastName: true,
       email: true,
       role: true,
+      isVerified: true,
       isAgreedToTermsCondition: true,
       isPersonalClinicalIdentificationData: true,
       isDigestiveHistoryBackgroundData: true,
@@ -212,6 +208,7 @@ const getMyProfile = async (userToken: string) => {
 
       isPartner: true,
       partner: true,
+      healthProfile: true,
     },
   });
 
