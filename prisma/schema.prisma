@@ -21,6 +21,7 @@ enum AppointmentStatus {
   PENDING
   CONFIRMED
   REJECTED
+  COMPLETED
 }
 
 model User {
