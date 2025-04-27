@@ -1,13 +1,14 @@
 import express from "express";
+import { AppointmentRoutes } from "../modules/Appointment/appointment.routes";
 import { AuthRoutes } from "../modules/Auth/auth.route";
-import { HealthProfileRoutes } from "../modules/HealthProfile/healthProfile.route";
-import { PartnerRoutes } from "../modules/Partner/partner.route";
-import { TestReportRoutes } from "../modules/TestReport/testReport.route";
-import { UserRoutes } from "../modules/User/user.route";
 import { BlogRoutes } from "../modules/Blog/blog.route";
 import { CartRoutes } from "../modules/Cart/cart.routes";
+import { HealthProfileRoutes } from "../modules/HealthProfile/healthProfile.route";
+import { OrderRoutes } from "../modules/Order/order.route";
+import { PartnerRoutes } from "../modules/Partner/partner.route";
 import { ProductRoutes } from "../modules/Product/product.route";
-import { AppointmentRoutes } from "../modules/Appointment/appointment.routes";
+import { TestReportRoutes } from "../modules/TestReport/testReport.route";
+import { UserRoutes } from "../modules/User/user.route";
 
 const router = express.Router();
 
@@ -47,6 +48,10 @@ const moduleRoutes = [
   {
     path: "/appointment",
     route: AppointmentRoutes,
+  },
+  {
+    path: "/order",
+    route: OrderRoutes,
   },
 ];
 
