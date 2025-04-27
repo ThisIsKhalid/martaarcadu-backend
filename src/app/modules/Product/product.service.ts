@@ -7,7 +7,9 @@ import prisma from "../../../shared/prisma";
 import { IProduct } from "./product.interface";
 
 const createProduct = async (productData: IProduct) => {
-  const { price, discount } = productData;
+  const price = Number(productData.price);
+  const discount = Number(productData.discount);
+  
   const discountedPrice = discount ? price - (price * discount) / 100 : price;
 
   const product = await prisma.product.create({
