@@ -42,7 +42,7 @@ const getCart = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
-        message: "Cart deleted successfully",
+        message: "Retrive cart successfully",
         data: cart,
     });
 })
