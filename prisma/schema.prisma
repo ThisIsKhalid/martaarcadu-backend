@@ -44,8 +44,8 @@ model User {
   updatedAt     DateTime       @updatedAt
   partner       Partner?
   healthProfile HealthProfile?
-  carts          Cart[]
-
+  carts         Cart[]
+  orders        Order[]
 
   @@map("users")
 }
@@ -232,12 +232,12 @@ model GoalsMotivation {
   urineryTractWellness   String?
 
   //secondary goal
-  secondaryGoal          String[] // e.g. "weight loss, muscle gain"
+  secondaryGoal        String[] // e.g. "weight loss, muscle gain"
   interventionPriority String? // e.g. high, medium, low
-  dietary                String? // e.g. high, medium, low
-  supplementation        String? // e.g. high, medium, low
-  potentialObstacles     String[] // e.g. "time, cost, knowledge"
-  supportNeeded          String[] // e.g. "motivation, accountability"
+  dietary              String? // e.g. high, medium, low
+  supplementation      String? // e.g. high, medium, low
+  potentialObstacles   String[] // e.g. "time, cost, knowledge"
+  supportNeeded        String[] // e.g. "motivation, accountability"
 
   notes                             String?
   isAuthorizeProcessingPersonalData Boolean? // e.g. true/false
@@ -260,7 +260,7 @@ model Product {
 
   isVisible Boolean @default(true)
   totalSell Int     @default(0)
-  carts          Cart[]
+  carts     Cart[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -269,28 +269,71 @@ model Product {
 }
 
 model Blog {
-  id          String   @id @default(cuid())
-  title       String
-  category    String
-  content     String
-  published   DateTime?
-  banner      String
+  id        String    @id @default(cuid())
+  title     String
+  category  String
+  content   String
+  published DateTime?
+  banner    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@map("blogs")
 }
 
-model Cart{
+model Cart {
   id        String @id @default(cuid())
   userId    String
   productId String
-  quantity Int @default(1)
-  
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int    @default(1)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("carts")
+}
+
+model Order {
+  id          String  @id @default(cuid())
+  orderSN     String  @unique
+  isConfirmed Boolean @default(false)
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  products   Json // [{ productId, quantity, }]
+  totalPrice Float
+
+  deliveryFee Float? // e.g. 5.99
+
+  // contact
+  mobileNumber String
+
+  // delivery
+  country   String
+  address   String
+  apartment String?
+  city      String
+  state     String
+  zipCode   String
+
+  // payment
+  paymentMethod   String // e.g. "credit_card", "paypal"
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethodId String? // e.g. "stripe_payment_id"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("orders")
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
 }
