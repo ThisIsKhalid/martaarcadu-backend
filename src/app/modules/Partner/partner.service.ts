@@ -59,6 +59,32 @@ const createPartnerAcc = async (payload: IPartner) => {
   return result;
 };
 
+const getAllPartner = async () => {
+  const partners = await prisma.partner.findMany();
+
+  if (!partners) {
+    throw new ApiError(httpStatus.NOT_FOUND, "No partners found");
+  }
+
+  return partners;
+}
+
+const getSinglePartner = async (id: string) => {
+  const partner = await prisma.partner.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!partner) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Partner not found");
+  }
+
+  return partner;
+}
+
 export const PartnerService = {
   createPartnerAcc,
+  getAllPartner,
+  getSinglePartner
 };
