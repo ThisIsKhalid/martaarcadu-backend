@@ -4,7 +4,6 @@ interface IProduct {
 }
 
 export interface IOrder {
-  orderSN: string;
   userId: string;
   products: IProduct[];
   mobileNumber: string;

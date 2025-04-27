@@ -17,6 +17,13 @@ enum UserRole {
   ADMIN
 }
 
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  COMPLETED
+}
+
 model User {
   id     String @id @default(cuid())
   userId String @unique
@@ -45,6 +52,7 @@ model User {
   partner       Partner?
   healthProfile HealthProfile?
   carts         Cart[]
+  appointments  Appointment[]
   orders        Order[]
 
   @@map("users")
@@ -61,8 +69,9 @@ model Partner {
 
   availableTime Json // [{ availableTimeStart, availableTimeEnd }]
 
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String        @unique
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
 
   @@map("partners")
 }
@@ -296,13 +305,29 @@ model Cart {
   @@map("carts")
 }
 
+model Appointment {
+  id        String            @id @default(cuid())
+  partnerId String
+  patientId String // ---> userId
+  date      DateTime
+  timeSlot  String
+  status    AppointmentStatus @default(PENDING)
+
+  user    User    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("appointments")
+}
+
 model Order {
   id          String  @id @default(cuid())
   orderSN     String  @unique
   isConfirmed Boolean @default(false)
 
   userId String
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   products   Json // [{ productId, quantity, }]
