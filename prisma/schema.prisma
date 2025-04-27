@@ -44,6 +44,8 @@ model User {
   updatedAt     DateTime       @updatedAt
   partner       Partner?
   healthProfile HealthProfile?
+  carts          Cart[]
+
 
   @@map("users")
 }
@@ -258,6 +260,7 @@ model Product {
 
   isVisible Boolean @default(true)
   totalSell Int     @default(0)
+  carts          Cart[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -276,4 +279,18 @@ model Blog {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@map("blogs")
+}
+
+model Cart{
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  quantity Int @default(1)
+  
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("carts")
 }
