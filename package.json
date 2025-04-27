@@ -24,7 +24,7 @@
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.15",
     "@types/uuid": "^10.0.0",
-    "prisma": "^6.1.0",
+    "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3"
@@ -33,7 +33,7 @@
     "@aws-sdk/client-s3": "^3.717.0",
     "@getbrevo/brevo": "^2.2.0",
     "@paypal/paypal-server-sdk": "^0.6.1",
-    "@prisma/client": "^6.1.0",
+    "@prisma/client": "^6.6.0",
     "@sendgrid/mail": "^8.1.4",
     "@types/jsonwebtoken": "^9.0.6",
     "axios": "^1.7.7",

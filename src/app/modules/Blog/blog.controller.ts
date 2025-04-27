@@ -3,9 +3,31 @@ import httpStatus from "http-status";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import { BlogService } from "./blog.service";
+import ApiError from "../../../errors/ApiErrors";
+import config from "../../../config";
+import { IBlog } from "./blog.interface";
+import pick from "../../../shared/pick";
+import { paginationFields } from "../../../constants/pagination";
 
 const blogCreate = catchAsync(async (req: Request, res: Response) => {
-  const blog = await BlogService.createBlog(req.body);
+
+  const { body, file } = req;
+
+  if (!file) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "File is required");
+  }
+
+
+  const blogData: IBlog = {
+    title: body.title,
+    category: body.category,
+    content: body.content,
+    published: body.published,
+    banner: `${config.backend_image_url}/blog/${file.filename}`
+  };
+
+
+  const blog = await BlogService.createBlog(blogData);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -16,6 +38,12 @@ const blogCreate = catchAsync(async (req: Request, res: Response) => {
 
 const blogUpdate = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+  const { file } = req;
+
+  if (file) {
+    req.body.banner = `${config.backend_image_url}/blog/${file.filename}`;
+  }
+
   const blog = await BlogService.updateBlog(id, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -37,7 +65,10 @@ const blogDelete = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllBlogs = catchAsync(async (req: Request, res: Response) => {
-  const blogs = await BlogService.getAllBlogs();
+  const filters = pick(req.query, ["searchTerm"]);
+  const options = pick(req.query, paginationFields);
+
+  const blogs = await BlogService.getAllBlogs(filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
