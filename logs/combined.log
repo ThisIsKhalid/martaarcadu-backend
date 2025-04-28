@@ -725,3 +725,26 @@
 {"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 13:04:05"}
 {"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 13:05:03"}
 >>>>>>> 4a617872c402c7c0a3ade4ef1fce1a3ec953107c
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-28 15:40:57"}
+{"level":"info","message":"Incoming request: POST /api/v1/partner","service":"default-service-name","timestamp":"2025-04-28 15:41:10"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner","service":"default-service-name","timestamp":"2025-04-28 15:45:26"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cm9zjub540000tceg99slf5px","service":"default-service-name","timestamp":"2025-04-28 15:47:18"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner/cm9zf5xsy000aijq5vcshxtxr","service":"default-service-name","timestamp":"2025-04-28 15:47:41"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner/cm9zjub540000tceg99slf5px","service":"default-service-name","timestamp":"2025-04-28 15:47:50"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:49:06"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:49:54"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:50:29"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:51:34"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:52:40"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:53:11"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:53:40"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:54:28"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:54:33"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:55:57"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 15:57:12"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 16:00:48"}
+{"level":"info","message":"Incoming request: GET /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 16:02:33"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 16:02:36"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 16:02:40"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 16:02:43"}
+{"level":"info","message":"Incoming request: PUT /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 16:02:49"}

@@ -11,4 +11,5 @@ export interface IPartner {
   availableDayEnd: string;
   availableTime: TAvailableTime[];
   userId: string;
+  phoneNumber?: string;
 }

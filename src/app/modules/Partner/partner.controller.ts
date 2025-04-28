@@ -53,8 +53,34 @@ const getSinglePartner = catchAsync(async (req: Request, res: Response) => {
   });
 })
 
+
+const updatePartner = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { file, body } = req;
+
+  let imageUrl;
+
+  if (file) {
+      imageUrl =  `${config.backend_image_url}/partner/${file.filename}`
+  }
+  const data = {
+    ...body,
+    profilePhoto: imageUrl,
+  };
+
+  const result = await PartnerService.updatePartner(id, data)
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Partner retrieved successfully",
+    data: result,
+  });
+})
+
 export const PartnerController = {
   createPartnerAcc,
   getAllPartner,
-  getSinglePartner
+  getSinglePartner,
+  updatePartner
 };

@@ -14,5 +14,6 @@ const imageUpload = upload.single("profilePhoto");
 router.post("/", imageUpload, PartnerController.createPartnerAcc);
 router.get("/", PartnerController.getAllPartner);
 router.get("/:id", PartnerController.getSinglePartner);
+router.put('/:id',imageUpload, PartnerController.updatePartner);
 
 export const PartnerRoutes = router;

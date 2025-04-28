@@ -83,8 +83,39 @@ const getSinglePartner = async (id: string) => {
   return partner;
 }
 
+
+const updatePartner = async (id: string, payload: IPartner) => {
+  const userExist = await prisma.partner.findUnique({
+    where: {
+      id,
+    }
+  });
+
+  if (!userExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  const updatePartner = await prisma.partner.update({
+    where: {
+      id
+    },
+    data: {
+      profilePhoto: payload.profilePhoto,
+      title: payload.title,
+      pricePerConsultation: Number(payload.pricePerConsultation),
+      availableDayStart: payload.availableDayStart,
+      availableDayEnd: payload.availableDayEnd,
+      availableTime: payload.availableTime,
+      phoneNumber: payload.phoneNumber
+    }
+  })
+
+  return updatePartner;
+}
+
 export const PartnerService = {
   createPartnerAcc,
   getAllPartner,
-  getSinglePartner
+  getSinglePartner,
+  updatePartner
 };
