@@ -59,9 +59,11 @@ model User {
 }
 
 model Partner {
-  id           String @id @default(cuid())
+  id           String  @id @default(cuid())
   profilePhoto String
   title        String
+  phoneNumber  String?
+  isVisible   Boolean @default(true)
 
   pricePerConsultation Float
   availableDayStart    String
@@ -328,7 +330,7 @@ model Order {
   isConfirmed Boolean @default(false)
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   products   Json // [{ productId, quantity, }]
   totalPrice Float

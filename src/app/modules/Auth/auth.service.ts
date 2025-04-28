@@ -122,6 +122,8 @@ const loginUser = async (payload: { email: string; password: string }) => {
     throw new ApiError(401, "Password is incorrect");
   }
 
+  console.log(userData)
+
   if (userData?.isVerified === false) {
     const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiry = new Date(Date.now() + 5 * 60 * 1000);
