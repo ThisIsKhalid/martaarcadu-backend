@@ -6,6 +6,7 @@ import { otpEmail } from "../../../emails/otpEmail";
 import ApiError from "../../../errors/ApiErrors";
 import emailSender from "../../../helpars/emailSender/emailSender";
 import { jwtHelpers } from "../../../helpars/jwtHelpers";
+import stripe from "../../../helpars/stripe/stripe";
 import prisma from "../../../shared/prisma";
 import { IUser } from "./user.interface";
 
@@ -29,6 +30,18 @@ const registration = async (userData: IUser) => {
   const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpExpiry = new Date(Date.now() + 5 * 60 * 1000);
 
+  const customer = await stripe.customers.create({
+    name: `${userData.firstName} ${userData.lastName}`,
+    email: userData.email,
+  });
+
+  if (!customer) {
+    throw new ApiError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      "Failed to create user"
+    );
+  }
+
   const newUser = await prisma.user.create({
     data: {
       userId: randomId,
@@ -40,6 +53,7 @@ const registration = async (userData: IUser) => {
       isAgreedToTermsCondition: userData.isAgreedToTermsCondition ?? false,
       otp: randomOtp,
       otpExpiresAt: otpExpiry,
+      stripeCustomerId: customer.id,
     },
   });
 
@@ -55,37 +69,6 @@ const registration = async (userData: IUser) => {
     role: newUser.role,
   };
 
-  // if (!newUser) {
-  //   throw new ApiError(
-  //     httpStatus.INTERNAL_SERVER_ERROR,
-  //     "Failed to create user"
-  //   );
-  // }
-
-  // const accessToken = jwtHelpers.generateToken(
-  //   {
-  //     id: newUser.id,
-  //     email: newUser.email,
-  //     role: newUser.role,
-  //   },
-  //   config.jwt.jwt_secret as Secret,
-  //   config.jwt.expires_in as string
-  // );
-
-  // const refreshToken = jwtHelpers.generateToken(
-  //   {
-  //     id: newUser.id,
-  //     email: newUser.email,
-  //     role: newUser.role,
-  //   },
-  //   config.jwt.refresh_token_secret as Secret,
-  //   config.jwt.refresh_token_expires_in as string
-  // );
-
-  // return {
-  //   accessToken,
-  //   refreshToken,
-  // };
 };
 
 export const UserService = {

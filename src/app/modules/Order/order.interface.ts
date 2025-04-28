@@ -12,6 +12,5 @@ export interface IOrder {
   city: string;
   state: string;
   zipCode: string;
-  paymentMethod: string;
   paymentMethodId: string;
 }

@@ -156,12 +156,6 @@ const loginUser = async (payload: { email: string; password: string }) => {
         email: userData.email,
         role: userData.role,
         isPartner: userData.isPartner,
-        isPersonalClinicalIdentificationData:
-          userData.isPersonalClinicalIdentificationData,
-        isDigestiveHistoryBackgroundData:
-          userData.isDigestiveHistoryBackgroundData,
-        isDietSensitivitiesHabitsData: userData.isDietSensitivitiesHabitsData,
-        isGoalMotivationConsentData: userData.isGoalMotivationConsentData,
       },
       config.jwt.jwt_secret as Secret,
       config.jwt.expires_in as string
