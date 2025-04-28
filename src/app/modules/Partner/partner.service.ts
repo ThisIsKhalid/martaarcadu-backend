@@ -62,18 +62,21 @@ const createPartnerAcc = async (payload: IPartner) => {
   return result;
 };
 
-const getAllPartner = async (  filters: {
+const getAllPartner = async (
+  filters: {
     searchTerm?: string;
+    date?: string;
   },
-  options: IPaginationOptions) => {
-
+  options: IPaginationOptions
+) => {
   const partners = await prisma.partner.findMany();
 
   if (!partners) {
     throw new ApiError(httpStatus.NOT_FOUND, "No partners found");
   }
 
-  const { searchTerm } = filters;
+  const { searchTerm, date } = filters;
+
   const { page, skip, limit, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(options);
 
@@ -90,6 +93,20 @@ const getAllPartner = async (  filters: {
     });
   }
 
+  // Add date filter (only if a date is provided)
+  if (date) {
+    const targetDate = new Date(date);
+    const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999));
+
+    andConditions.push({
+      createdAt: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    });
+  }
+
   const whereConditions: Prisma.PartnerWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
 
@@ -103,7 +120,7 @@ const getAllPartner = async (  filters: {
       sortBy && sortOrder
         ? { [sortBy]: sortOrder }
         : {
-            // createdAt: "desc",
+            createdAt: "desc",
           },
   });
 
@@ -121,7 +138,7 @@ const getAllPartner = async (  filters: {
     },
     data: partner,
   };
-}
+};
 
 const getSinglePartner = async (id: string) => {
   const partner = await prisma.partner.findUnique({
@@ -135,14 +152,13 @@ const getSinglePartner = async (id: string) => {
   }
 
   return partner;
-}
-
+};
 
 const updatePartner = async (id: string, payload: IPartner) => {
   const userExist = await prisma.partner.findUnique({
     where: {
       id,
-    }
+    },
   });
 
   if (!userExist) {
@@ -151,7 +167,7 @@ const updatePartner = async (id: string, payload: IPartner) => {
 
   const updatePartner = await prisma.partner.update({
     where: {
-      id
+      id,
     },
     data: {
       profilePhoto: payload.profilePhoto,
@@ -160,13 +176,12 @@ const updatePartner = async (id: string, payload: IPartner) => {
       availableDayStart: payload.availableDayStart,
       availableDayEnd: payload.availableDayEnd,
       availableTime: payload.availableTime,
-      phoneNumber: payload.phoneNumber
-    }
-  })
+      phoneNumber: payload.phoneNumber,
+    },
+  });
 
   return updatePartner;
-}
-
+};
 
 const updateVisibility = async (id: string, isVisible: boolean) => {
   const product = await prisma.partner.findUnique({
@@ -177,7 +192,6 @@ const updateVisibility = async (id: string, isVisible: boolean) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Partner not found");
   }
 
-
   const updatedProduct = await prisma.partner.update({
     where: { id },
     data: { isVisible },
@@ -186,10 +200,30 @@ const updateVisibility = async (id: string, isVisible: boolean) => {
   return updatedProduct;
 };
 
+
+const deletePartner = async(id: string) => {
+  const partner = await prisma.partner.findUnique({
+    where: {
+      id
+    }
+  })
+
+  if(!partner){
+    throw new ApiError(httpStatus.NOT_FOUND, "Partner not found");
+  }
+
+  await prisma.partner.delete({
+    where: {
+      id
+    }
+  })
+}
+
 export const PartnerService = {
   createPartnerAcc,
   getAllPartner,
   getSinglePartner,
   updatePartner,
-  updateVisibility
+  updateVisibility,
+  deletePartner
 };
