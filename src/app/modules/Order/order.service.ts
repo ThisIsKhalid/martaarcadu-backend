@@ -85,6 +85,35 @@ const createOrder = async (userId: string, orderData: IOrder) => {
   return order;
 };
 
+const confirmOrder = async (orderId: string, status: boolean) => {
+  const order = await prisma.order.findUnique({
+    where: {
+      id: orderId,
+    },
+  });
+
+  if (!order || !order.paymentIntentId) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
+  }
+
+  const paymentIntent = await PaymentService.capturePayment(
+    order?.paymentIntentId
+  );
+
+  if (paymentIntent.status !== "succeeded") {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Payment capture failed");
+  }
+
+  return await prisma.order.update({
+    where: {
+      id: orderId,
+    },
+    data: {
+      isConfirmed: status,
+    },
+  });
+};
+
 const deleteOrder = async (id: string) => {
   return await prisma.order.delete({
     where: { id },
@@ -95,6 +124,7 @@ const getAllOrders = async () => {};
 
 export const OrderService = {
   createOrder,
+  confirmOrder,
   deleteOrder,
   getAllOrders,
 };

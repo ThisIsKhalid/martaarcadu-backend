@@ -18,6 +18,13 @@ const authorizePayment = async (
   return paymentIntent;
 };
 
+const capturePayment = async (paymentIntentId: string) => {
+  const paymentIntent = await stripe.paymentIntents.capture(paymentIntentId);
+
+  return paymentIntent;
+};
+
 export const PaymentService = {
   authorizePayment,
+  capturePayment,
 };

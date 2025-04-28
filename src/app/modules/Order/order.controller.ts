@@ -17,6 +17,19 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const confirmOrder = catchAsync(async (req: Request, res: Response) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  const order = await OrderService.confirmOrder(orderId, status);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Order confirmed successfully",
+    data: order,
+  });
+});
+
 const deleteOrder = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const order = await OrderService.deleteOrder(id);
@@ -40,6 +53,7 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
 
 export const OrderController = {
   createOrder,
+  confirmOrder,
   deleteOrder,
   getAllOrders,
 };

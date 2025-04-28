@@ -7,6 +7,11 @@ const router = express.Router();
 
 router.post("/", auth(UserRole.USER), OrderController.createOrder);
 
+router.post(
+  "/confirm/:orderId",
+  OrderController.confirmOrder
+);
+
 router.delete("/:id", OrderController.deleteOrder);
 
 router.get("/", OrderController.getAllOrders);

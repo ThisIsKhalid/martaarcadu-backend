@@ -878,3 +878,8 @@
 {"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-28 17:13:22"}
 {"level":"info","message":"Incoming request: GET /api/v1/partner/cma0w1n340001tc84k10l203c","service":"default-service-name","timestamp":"2025-04-28 17:23:56"}
 >>>>>>> a4b7a3a89e7554e445c1622fa6204ed1803d8cc3
+{"level":"info","message":"Incoming request: POST /api/v1/user/register","service":"default-service-name","timestamp":"2025-04-28 18:24:52"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/auth/verify-otp","service":"default-service-name","timestamp":"2025-04-28 18:25:50"}
+{"level":"info","message":"Incoming request: POST /api/v1/order","service":"default-service-name","timestamp":"2025-04-28 18:28:15"}
+{"level":"info","message":"Incoming request: POST /api/v1/order","service":"default-service-name","timestamp":"2025-04-28 18:29:06"}
+{"level":"info","message":"Incoming request: POST /api/v1/order/confirm/cma121xdp0002ijt9pxr8njso","service":"default-service-name","timestamp":"2025-04-28 18:43:33"}
