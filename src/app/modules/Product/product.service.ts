@@ -125,7 +125,6 @@ const updateVisibility = async (id: string, isVisible: boolean) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
   }
 
-  console.log(isVisible)
 
   const updatedProduct = await prisma.product.update({
     where: { id },

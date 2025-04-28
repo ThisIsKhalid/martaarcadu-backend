@@ -72,6 +72,9 @@ const updateVisibility = catchAsync(async (req: Request, res: Response) => {
 });
 
 
+
+
+
 export const ProductController = {
   productCreate,
   productDelete,

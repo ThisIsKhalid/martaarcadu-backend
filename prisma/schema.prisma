@@ -63,7 +63,7 @@ model Partner {
   profilePhoto String
   title        String
   phoneNumber  String?
-  isVisible   Boolean @default(true)
+  isVisible    Boolean @default(true)
 
   pricePerConsultation Float
   availableDayStart    String
@@ -286,6 +286,7 @@ model Blog {
   content   String
   published DateTime?
   banner    String
+  isVisible Boolean   @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
