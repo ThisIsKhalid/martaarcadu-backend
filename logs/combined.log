@@ -508,6 +508,7 @@
 {"level":"info","message":"Incoming request: PATCH /api/v1/appointment/cm9znygo70001tclobsnem91h","service":"default-service-name","timestamp":"2025-04-27 19:41:43"}
 {"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-27 19:41:50"}
 {"level":"info","message":"Incoming request: GET /favicon.ico","service":"default-service-name","timestamp":"2025-04-27 21:12:01"}
+<<<<<<< HEAD
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/fdf64adc-c3db-4ce8-8c1e-0aacd747afdc","service":"default-service-name","timestamp":"2025-04-28 10:13:59"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/fdf64adc-c3db-4ce8-8c1e-0aacd747afdc","service":"default-service-name","timestamp":"2025-04-28 10:23:31"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/fdf64adc-c3db-4ce8-8c1e-0aacd747afdc","service":"default-service-name","timestamp":"2025-04-28 10:23:47"}
@@ -687,3 +688,40 @@
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9zgz0vb000jijq5fx7zodw5","service":"default-service-name","timestamp":"2025-04-28 15:07:48"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9zgz0vb000jijq5fx7zodw5","service":"default-service-name","timestamp":"2025-04-28 15:08:21"}
 {"level":"info","message":"Incoming request: GET /api/v1/health-profile/cm9zgz0vb000jijq5fx7zodw5","service":"default-service-name","timestamp":"2025-04-28 15:09:35"}
+=======
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-28 11:12:35"}
+{"level":"info","message":"Incoming request: GET /api/v1/blog/?sortOrder=desc","service":"default-service-name","timestamp":"2025-04-28 11:13:05"}
+{"level":"info","message":"Incoming request: POST /api/v1/auth/login","service":"default-service-name","timestamp":"2025-04-28 11:40:28"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 11:41:18"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 11:41:39"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/patient/cm9zjub540000tceg99slf5px","service":"default-service-name","timestamp":"2025-04-28 11:41:42"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 11:43:14"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/patient/cm9zjub540000tceg99slf5px","service":"default-service-name","timestamp":"2025-04-28 11:43:20"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 11:46:46"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?date=2025-04-27","service":"default-service-name","timestamp":"2025-04-28 11:48:02"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?date=2025-04-28","service":"default-service-name","timestamp":"2025-04-28 11:48:07"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?sta","service":"default-service-name","timestamp":"2025-04-28 12:11:23"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?status=REJECTED","service":"default-service-name","timestamp":"2025-04-28 12:11:33"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:11:42"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:11:49"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?status=PENDING","service":"default-service-name","timestamp":"2025-04-28 12:12:54"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?status=PENDING","service":"default-service-name","timestamp":"2025-04-28 12:13:45"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/appointment/cm9zlcqtn0003tcgk7nq1q6tg","service":"default-service-name","timestamp":"2025-04-28 12:14:08"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/patient/cm9zjub540000tceg99slf5px","service":"default-service-name","timestamp":"2025-04-28 12:14:14"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693?status=COMPLETED","service":"default-service-name","timestamp":"2025-04-28 12:14:24"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:42:08"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:42:40"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:42:56"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:43:37"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:44:00"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:45:21"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:46:52"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:46:57"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:56:48"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:58:23"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 12:58:50"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 13:03:42"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 13:03:55"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 13:04:05"}
+{"level":"info","message":"Incoming request: GET /api/v1/appointment/partner-history/cm9zfryw80001tcx80nand693","service":"default-service-name","timestamp":"2025-04-28 13:05:03"}
+>>>>>>> 4a617872c402c7c0a3ade4ef1fce1a3ec953107c

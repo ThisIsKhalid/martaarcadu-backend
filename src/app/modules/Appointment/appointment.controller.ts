@@ -22,7 +22,7 @@ const createAppointment = catchAsync(async (req: Request, res: Response) => {
 
 const partnarAppointment = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const filters = pick(req.query, ["searchTerm", "date"]);
+    const filters = pick(req.query, ["searchTerm", "date", "status"]);
     const options = pick(req.query, paginationFields);
 
     const appointment = await AppointmentService.getPartnarAppointment(id, filters, options);
@@ -65,9 +65,24 @@ const updateStatus = catchAsync(async (req: Request, res: Response) => {
 })
 
 
+const partnerAppintmentHistory = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const appointment = await AppointmentService.partnerAppintmentHistory(id)
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Retrive partner appintment successfully",
+        data: appointment,
+      });
+})
+
+
 export const AppointmentController = {
     createAppointment,
     partnarAppointment,
     patientAppointment,
-    updateStatus
+    updateStatus,
+    partnerAppintmentHistory
 }
