@@ -47,6 +47,7 @@ const getPartnarAppointment = async (
   filters: {
     searchTerm?: string;
     date?: string;
+    status?: string
   },
   options: IPaginationOptions
 ) => {
@@ -59,7 +60,7 @@ const getPartnarAppointment = async (
     throw new ApiError(httpStatus.NOT_FOUND, "Partner not found");
   }
 
-  const { searchTerm, date } = filters;
+  const { searchTerm, date, status } = filters;
   const { page, skip, limit, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(options);
 
@@ -76,6 +77,12 @@ const getPartnarAppointment = async (
           mode: "insensitive",
         },
       })),
+    });
+  }
+
+  if (status) {
+    andConditions.push({
+      status: status,
     });
   }
 

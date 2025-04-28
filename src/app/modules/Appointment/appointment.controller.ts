@@ -22,7 +22,7 @@ const createAppointment = catchAsync(async (req: Request, res: Response) => {
 
 const partnarAppointment = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const filters = pick(req.query, ["searchTerm", "date"]);
+    const filters = pick(req.query, ["searchTerm", "date", "status"]);
     const options = pick(req.query, paginationFields);
 
     const appointment = await AppointmentService.getPartnarAppointment(id, filters, options);
