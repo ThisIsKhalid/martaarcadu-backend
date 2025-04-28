@@ -9,6 +9,10 @@ import { IProduct } from "./product.interface";
 const createProduct = async (productData: IProduct) => {
   const price = Number(productData.price);
   const discount = Number(productData.discount);
+
+  if(discount > 100){
+    throw new ApiError(404, "Discount cannot be greater than 100%")
+  }
   
   const discountedPrice = discount ? price - (price * discount) / 100 : price;
 
@@ -121,6 +125,7 @@ const updateVisibility = async (id: string, isVisible: boolean) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
   }
 
+
   const updatedProduct = await prisma.product.update({
     where: { id },
     data: { isVisible },
@@ -134,4 +139,5 @@ export const ProductService = {
   createProduct,
   deleteProduct,
   getAllProducts,
+  updateVisibility
 };

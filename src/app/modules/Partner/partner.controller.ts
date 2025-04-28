@@ -5,6 +5,8 @@ import ApiError from "../../../errors/ApiErrors";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import { PartnerService } from "./partner.service";
+import pick from "../../../shared/pick";
+import { paginationFields } from "../../../constants/pagination";
 
 const createPartnerAcc = catchAsync(async (req: Request, res: Response) => {
   const { file, body } = req;
@@ -30,7 +32,10 @@ const createPartnerAcc = catchAsync(async (req: Request, res: Response) => {
 
 
 const getAllPartner = catchAsync(async (req: Request, res: Response) => {
-  const result = await PartnerService.getAllPartner()
+  const filters = pick(req.query, ["searchTerm"]);
+  const options = pick(req.query, paginationFields);
+
+  const result = await PartnerService.getAllPartner(filters, options)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -53,8 +58,51 @@ const getSinglePartner = catchAsync(async (req: Request, res: Response) => {
   });
 })
 
+
+const updatePartner = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { file, body } = req;
+
+  let imageUrl;
+
+  if (file) {
+      imageUrl =  `${config.backend_image_url}/partner/${file.filename}`
+  }
+  const data = {
+    ...body,
+    profilePhoto: imageUrl,
+  };
+
+  const result = await PartnerService.updatePartner(id, data)
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Partner retrieved successfully",
+    data: result,
+  });
+})
+
+
+const updateVisibility = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const {isVisible} = req.body;
+
+  const product = await PartnerService.updateVisibility(id, isVisible);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Partner retrieved successfully",
+    data: product,
+  });
+});
+
+
 export const PartnerController = {
   createPartnerAcc,
   getAllPartner,
-  getSinglePartner
+  getSinglePartner,
+  updatePartner,
+  updateVisibility
 };
