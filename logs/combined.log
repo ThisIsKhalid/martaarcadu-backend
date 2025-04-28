@@ -937,3 +937,13 @@
 {"level":"info","message":"Incoming request: GET /api/v1/partner","service":"default-service-name","timestamp":"2025-04-28 18:34:20"}
 {"level":"info","message":"Incoming request: DELETE /api/v1/partner/cma1166hn000atcd0o2u29t05","service":"default-service-name","timestamp":"2025-04-28 18:34:28"}
 {"level":"info","message":"Incoming request: DELETE /api/v1/partner/cma1166hn000atcd0o2u29t05","service":"default-service-name","timestamp":"2025-04-28 18:34:32"}
+{"level":"info","message":"Incoming request: GET /api/v1/blog/","service":"default-service-name","timestamp":"2025-04-28 18:49:03"}
+{"level":"info","message":"Incoming request: GET /api/v1/blog/","service":"default-service-name","timestamp":"2025-04-28 18:49:25"}
+{"level":"info","message":"Incoming request: GET /api/v1/blog/","service":"default-service-name","timestamp":"2025-04-28 18:49:49"}
+{"level":"info","message":"Incoming request: POST /api/v1/blog","service":"default-service-name","timestamp":"2025-04-28 18:50:14"}
+{"level":"info","message":"Incoming request: POST /api/v1/blog","service":"default-service-name","timestamp":"2025-04-28 18:51:47"}
+{"level":"info","message":"Incoming request: POST /api/v1/blog","service":"default-service-name","timestamp":"2025-04-28 18:51:51"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/blog/blog-visibikity/cma12v4is0001tc1c0qxylywp","service":"default-service-name","timestamp":"2025-04-28 18:52:21"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/blog/blog-visibility/cma12v4is0001tc1c0qxylywp","service":"default-service-name","timestamp":"2025-04-28 18:52:45"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/blog/blog-visibility/cma12v4is0001tc1c0qxylywp","service":"default-service-name","timestamp":"2025-04-28 18:52:53"}
+{"level":"info","message":"Incoming request: PATCH /api/v1/blog/blog-visibility/cma12v4is0001tc1c0qxylywp","service":"default-service-name","timestamp":"2025-04-28 18:52:59"}
