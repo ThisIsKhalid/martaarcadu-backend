@@ -130,10 +130,30 @@ const getSingleBlog = async (id: string) => {
   });
 };
 
+
+const updateVisibility = async (id: string, isVisible: boolean) => {
+  const blog = await prisma.blog.findUnique({
+    where: { id },
+  });
+
+  if (!blog) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Blog not found");
+  }
+
+  const updatedProduct = await prisma.blog.update({
+    where: { id },
+    data: { isVisible },
+  });
+
+  return updatedProduct;
+};
+
+
 export const BlogService = {
   createBlog,
   updateBlog,
   deleteBlog,
   getAllBlogs,
   getSingleBlog,
+  updateVisibility
 };
