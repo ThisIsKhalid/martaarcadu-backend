@@ -88,10 +88,26 @@ const getSingleBlog = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const updateVisibility = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const {isVisible} = req.body;
+
+  const product = await BlogService.updateVisibility(id, isVisible);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Products retrieved successfully",
+    data: product,
+  });
+});
+
 export const BlogController = {
   blogCreate,
   blogUpdate,
   blogDelete,
   getAllBlogs,
   getSingleBlog,
+  updateVisibility
 };

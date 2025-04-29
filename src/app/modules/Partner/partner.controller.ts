@@ -32,7 +32,7 @@ const createPartnerAcc = catchAsync(async (req: Request, res: Response) => {
 
 
 const getAllPartner = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, ["searchTerm"]);
+  const filters = pick(req.query, ["searchTerm", "date"]);
   const options = pick(req.query, paginationFields);
 
   const result = await PartnerService.getAllPartner(filters, options)
@@ -99,10 +99,25 @@ const updateVisibility = catchAsync(async (req: Request, res: Response) => {
 });
 
 
+const deletePartner = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PartnerService.deletePartner(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Delete partner successfully",
+    data: result,
+  });
+})
+
+
 export const PartnerController = {
   createPartnerAcc,
   getAllPartner,
   getSinglePartner,
   updatePartner,
-  updateVisibility
+  updateVisibility,
+  deletePartner,
 };

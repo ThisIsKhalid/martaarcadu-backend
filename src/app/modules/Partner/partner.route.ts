@@ -15,6 +15,8 @@ router.post("/", imageUpload, PartnerController.createPartnerAcc);
 router.get("/", PartnerController.getAllPartner);
 router.get("/:id", PartnerController.getSinglePartner);
 router.put('/:id',imageUpload, PartnerController.updatePartner);
-router.patch("/:", PartnerController.updateVisibility);
+router.patch("/update-visibility/:id", PartnerController.updateVisibility);
+router.delete("/:id", PartnerController.deletePartner);
+
 
 export const PartnerRoutes = router;
