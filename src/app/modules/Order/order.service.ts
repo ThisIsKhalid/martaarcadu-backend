@@ -66,7 +66,7 @@ const createOrder = async (userId: string, orderData: IOrder) => {
       userId,
       orderSN: serialNumber,
       products: JSON.stringify(orderData?.products),
-      totalPrice: totalprice,
+      totalPrice: totalAmount,
       deliveryFee,
       mobileNumber: orderData?.mobileNumber,
       country: orderData?.country,
