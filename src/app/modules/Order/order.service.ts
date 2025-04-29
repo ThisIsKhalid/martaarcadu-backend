@@ -112,6 +112,7 @@ const confirmOrder = async (orderId: string, status: boolean) => {
     },
     data: {
       isConfirmed: status,
+      paymentStatus: "COMPLETED",
     },
   });
 };

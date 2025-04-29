@@ -58,6 +58,8 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
     },
   });
 
+  console.log(ordersByDay)
+
   // Format sales data for each day of the week
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const salesData = days.map((day) => ({
