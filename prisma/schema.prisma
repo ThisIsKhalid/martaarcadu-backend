@@ -56,8 +56,22 @@ model User {
   carts         Cart[]
   appointments  Appointment[]
   orders        Order[]
+  admins         Admin?
 
   @@map("users")
+}
+
+model Admin {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  totalRevenue Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
 }
 
 model Partner {

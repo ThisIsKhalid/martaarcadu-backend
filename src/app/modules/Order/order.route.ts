@@ -7,13 +7,12 @@ const router = express.Router();
 
 router.post("/", auth(UserRole.USER), OrderController.createOrder);
 
-router.post(
-  "/confirm/:orderId",
-  OrderController.confirmOrder
-);
+router.post("/confirm/:orderId", OrderController.confirmOrder);
 
 router.delete("/:id", OrderController.deleteOrder);
 
 router.get("/", OrderController.getAllOrders);
+
+router.get("/:id", OrderController.getOrderById);
 
 export const OrderRoutes = router;

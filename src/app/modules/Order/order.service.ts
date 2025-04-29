@@ -1,6 +1,8 @@
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiErrors";
+import { paginationHelpers } from "../../../helpars/paginationHelper";
 import stripe from "../../../helpars/stripe/stripe";
+import { IPaginationOptions } from "../../../interfaces/paginations";
 import prisma from "../../../shared/prisma";
 import { PaymentService } from "../Payment/payment.service";
 import { IOrder } from "./order.interface";
@@ -115,16 +117,69 @@ const confirmOrder = async (orderId: string, status: boolean) => {
 };
 
 const deleteOrder = async (id: string) => {
+  const order = await prisma.order.findUnique({
+    where: { id },
+  });
+
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
+  }
+
+  if (order.isConfirmed) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      "You cannot delete a confirmed order"
+    );
+  }
+
   return await prisma.order.delete({
     where: { id },
   });
 };
 
-const getAllOrders = async () => {};
+const getAllOrders = async (options: IPaginationOptions) => {
+  const { page, skip, limit, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(options);
+
+  const orders = await prisma.order.findMany({
+    skip,
+    take: limit,
+    orderBy:
+      sortBy && sortOrder
+        ? { [sortBy]: sortOrder }
+        : {
+            createdAt: "desc",
+          },
+  });
+
+  const total = await prisma.order.count();
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: orders,
+  };
+};
+
+const getOrderById = async (id: string) => {
+  const order = await prisma.order.findUnique({
+    where: { id },
+  });
+
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
+  }
+
+  return order;
+};
 
 export const OrderService = {
   createOrder,
   confirmOrder,
   deleteOrder,
   getAllOrders,
+  getOrderById,
 };

@@ -955,3 +955,23 @@
 {"level":"info","message":"Incoming request: PATCH /api/v1/blog/blog-visibility/cma12v4is0001tc1c0qxylywp","service":"default-service-name","timestamp":"2025-04-28 18:52:53"}
 {"level":"info","message":"Incoming request: PATCH /api/v1/blog/blog-visibility/cma12v4is0001tc1c0qxylywp","service":"default-service-name","timestamp":"2025-04-28 18:52:59"}
 >>>>>>> d93f6517784bb30d23b11d49425e4ffcda36dc86
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:53:33"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:54:01"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:55:05"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:56:44"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:57:32"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:57:40"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:57:50"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:57:58"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:58:14"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:58:23"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:58:31"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 11:58:46"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:05:03"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:09:28"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:10:13"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:25:09"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:32:44"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:41:00"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:41:46"}
+{"level":"info","message":"Incoming request: GET /api/v1/auth/me","service":"default-service-name","timestamp":"2025-04-29 12:43:16"}
