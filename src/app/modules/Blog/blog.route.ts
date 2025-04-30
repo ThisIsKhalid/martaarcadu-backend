@@ -14,5 +14,6 @@ router.patch("/:id", fileUpload, BlogController.blogUpdate);
 router.delete("/:id", BlogController.blogDelete);
 router.get("/", BlogController.getAllBlogs);
 router.get("/:id", BlogController.getSingleBlog);
+router.patch("/blog-visibility/:id", BlogController.updateVisibility);
 
 export const BlogRoutes = router;

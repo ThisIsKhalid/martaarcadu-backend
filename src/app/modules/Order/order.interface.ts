@@ -4,7 +4,6 @@ interface IProduct {
 }
 
 export interface IOrder {
-  userId: string;
   products: IProduct[];
   mobileNumber: string;
   country: string;
@@ -13,6 +12,5 @@ export interface IOrder {
   city: string;
   state: string;
   zipCode: string;
-  paymentMethod: string;
   paymentMethodId: string;
 }

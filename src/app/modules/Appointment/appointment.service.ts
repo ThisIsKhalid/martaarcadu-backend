@@ -6,6 +6,10 @@ import { IPaginationOptions } from "../../../interfaces/paginations";
 import prisma from "../../../shared/prisma";
 import { IAppointment } from "./appointment.interface";
 
+
+const sevenDaysAgo = new Date();
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
 const createAppointment = async (appointmentData: IAppointment) => {
   const partnerExists = await prisma.partner.findUnique({
     where: { id: appointmentData.partnerId },
@@ -47,6 +51,7 @@ const getPartnarAppointment = async (
   filters: {
     searchTerm?: string;
     date?: string;
+    status?: string
   },
   options: IPaginationOptions
 ) => {
@@ -59,7 +64,7 @@ const getPartnarAppointment = async (
     throw new ApiError(httpStatus.NOT_FOUND, "Partner not found");
   }
 
-  const { searchTerm, date } = filters;
+  const { searchTerm, date, status } = filters;
   const { page, skip, limit, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(options);
 
@@ -76,6 +81,12 @@ const getPartnarAppointment = async (
           mode: "insensitive",
         },
       })),
+    });
+  }
+
+  if (status) {
+    andConditions.push({
+      status: status,
     });
   }
 
@@ -219,9 +230,58 @@ const updateStatus = async(id: string,  body: { status: AppointmentStatus }) => 
 }
 
 
+const partnerAppintmentHistory = async(id: string) =>{
+  const partner = await prisma.partner.findUnique({
+    where: {
+      id
+    }
+  })
+
+  if(!partner){
+    throw new ApiError(httpStatus.NOT_FOUND, "Partner not found");
+  }
+
+  const appintment = await prisma.$transaction( async(TX) =>{
+     const totalAppointment = await TX.appointment.count({
+      where: {
+        partnerId: id
+      }
+     });
+
+     const pendingAppointment = await TX.appointment.count({
+      where: {
+        partnerId: id,
+        status: "PENDING"
+      }
+     });
+
+     const newAppointment = await TX.appointment.count({
+      where: {
+        partnerId: id,
+        createdAt: {
+          gte: sevenDaysAgo
+        }
+      }
+     });
+
+     const revinue = "Not calculated yet"
+
+     return{
+      totalAppointment,
+      pendingAppointment,
+      revinue,
+      newAppointment
+     }
+  })
+
+  return appintment;
+}
+
+
 export const AppointmentService = {
   createAppointment,
   getPartnarAppointment,
   getPartientAppointment,
-  updateStatus
+  updateStatus,
+  partnerAppintmentHistory
 };

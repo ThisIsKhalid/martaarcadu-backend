@@ -34,6 +34,8 @@ model User {
   password  String
   role      UserRole @default(USER)
 
+  stripeCustomerId String? // for stripe payment
+
   otp          String?
   otpExpiresAt DateTime?
   isVerified   Boolean   @default(false)
@@ -54,14 +56,30 @@ model User {
   carts         Cart[]
   appointments  Appointment[]
   orders        Order[]
+  admins        Admin?
 
   @@map("users")
 }
 
+model Admin {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  totalRevenue Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
 model Partner {
-  id           String @id @default(cuid())
+  id           String  @id @default(cuid())
   profilePhoto String
   title        String
+  phoneNumber  String?
+  isVisible    Boolean @default(true)
 
   pricePerConsultation Float
   availableDayStart    String
@@ -72,6 +90,9 @@ model Partner {
   userId       String        @unique
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   appointments Appointment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("partners")
 }
@@ -284,6 +305,7 @@ model Blog {
   content   String
   published DateTime?
   banner    String
+  isVisible Boolean   @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -328,7 +350,7 @@ model Order {
   isConfirmed Boolean @default(false)
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   products   Json // [{ productId, quantity, }]
   totalPrice Float
@@ -347,9 +369,10 @@ model Order {
   zipCode   String
 
   // payment
-  paymentMethod   String // e.g. "credit_card", "paypal"
+  // paymentMethod   String // e.g. "credit_card", "paypal"
   paymentStatus   PaymentStatus @default(PENDING)
   paymentMethodId String? // e.g. "stripe_payment_id"
+  paymentIntentId String? // e.g. "stripe_payment_intent_id"
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -361,4 +384,19 @@ enum PaymentStatus {
   PENDING
   COMPLETED
   FAILED
+}
+
+model Transaction {
+  id String @id @default(cuid())
+
+  transactionId String @unique
+  paymentMethod String // e.g. "credit_card", "paypal"
+  amount        Float
+
+  balance Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("wallets")
 }

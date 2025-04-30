@@ -14,5 +14,6 @@ const imageUpload = upload.single("image");
 router.post("/",imageUpload, ProductController.productCreate);
 router.delete("/:id", ProductController.productDelete);
 router.get("/", ProductController.getAllProducts);
+router.patch("/:id", ProductController.updateVisibility);
 
 export const ProductRoutes = router;
