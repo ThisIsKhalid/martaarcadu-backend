@@ -8,4 +8,8 @@ router.get(
   UtilsController.getAdminDashboardData
 );
 
+router.get("/admin-dashboard-wallet/:month/:year", UtilsController.getDashboardWallet);
+
+router.get("/admin-dashboard-transaction/:month", UtilsController.getTransaction);
+
 export const UtilsRoutes = router;

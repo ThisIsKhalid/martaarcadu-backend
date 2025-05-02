@@ -1,8 +1,15 @@
+import httpStatus from "http-status";
 import prisma from "../../../shared/prisma";
+import ApiError from "../../../errors/ApiErrors";
+
 
 interface DashboardParams {
   month: number; // 1-12
   year: number;
+}
+
+interface monthParams{
+  month: number
 }
 
 const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
@@ -15,19 +22,18 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
 
   const totalProducts = await prisma.product.count({
     where: {
-      isVisible: true
-    }
-  })
-
+      isVisible: true,
+    },
+  });
 
   const revinue = await prisma.order.aggregate({
     _sum: {
-      totalPrice: true
+      totalPrice: true,
     },
     where: {
-      paymentStatus: "COMPLETED"
-    }
-  })
+      paymentStatus: "COMPLETED",
+    },
+  });
 
   // 2. Get sales analytics data for the current week of the specified month/year
   const now = new Date();
@@ -74,7 +80,7 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
     },
   });
 
-  console.log(ordersByDay)
+  console.log(ordersByDay);
 
   // Format sales data for each day of the week
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -126,6 +132,149 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
   };
 };
 
+// const getDashboardWallet = async({ month, year }: DashboardParams) => {
+//   const totalProducts = await prisma.product.count({
+//     where: {
+//       isVisible: true
+//     }
+//   })
+
+//   const totalRevinue = await prisma.order.aggregate({
+//     _sum: {
+//       totalPrice: true
+//     },
+//     where: {
+//       paymentStatus: "COMPLETED"
+//     }
+//   })
+
+//   const totalOrder = await prisma.order.count({
+//     where: {
+//       paymentStatus: "COMPLETED"
+//     }
+
+//     // Yearly Revinue
+//     const years = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+//   });
+
+//   return {
+//     totalProducts,
+//     totalRevinue,
+//     totalOrder
+//   }
+// }
+
+interface DashboardParams {
+  month: number; // (not used here, but you can still accept it)
+  year: number;
+}
+
+interface MonthlyData {
+  month: string;
+  amount: number;
+}
+
+interface DashboardWallet {
+  totalProducts: number;
+  totalRevenue: number;
+  totalOrder: number;
+  yearlyRevenue: number;
+  monthlyRevenue: MonthlyData[];
+}
+
+const MONTH_NAMES = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export const getDashboardWallet = async ({
+  year,
+}: DashboardParams): Promise<DashboardWallet> => {
+  // 1) Total visible products
+  const totalProducts = await prisma.product.count({
+    where: { isVisible: true },
+  });
+
+  // 2) All-time COMPLETED revenue & count
+  const allTime = await prisma.order.aggregate({
+    _sum: { totalPrice: true },
+    _count: { id: true },
+    where: { paymentStatus: "COMPLETED" },
+  });
+  const totalRevenue = allTime._sum.totalPrice ?? 0;
+  const totalOrder = allTime._count.id;
+
+  // 3) Year boundaries
+  const startOfYear = new Date(year, 0, 1);
+  const startOfNext = new Date(year + 1, 0, 1);
+
+  // 4) Yearly revenue
+  const thisYearAgg = await prisma.order.aggregate({
+    _sum: { totalPrice: true },
+    where: {
+      paymentStatus: "COMPLETED",
+      createdAt: { gte: startOfYear, lt: startOfNext },
+    },
+  });
+  const yearlyRevenue = thisYearAgg._sum.totalPrice ?? 0;
+
+  // 5) Month‑wise breakdown for that year
+  const ordersInYear = await prisma.order.findMany({
+    where: {
+      paymentStatus: "COMPLETED",
+      createdAt: { gte: startOfYear, lt: startOfNext },
+    },
+    select: { totalPrice: true, createdAt: true },
+  });
+
+  // zero‑init 12 buckets
+  const monthlyRevenue: MonthlyData[] = MONTH_NAMES.map((m) => ({
+    month: m,
+    amount: 0,
+  }));
+
+  // tally into each month
+  ordersInYear.forEach(({ totalPrice, createdAt }) => {
+    const idx = createdAt.getMonth(); // 0–11
+    monthlyRevenue[idx].amount += totalPrice;
+  });
+
+  return {
+    totalProducts,
+    totalRevenue,
+    totalOrder,
+    yearlyRevenue,
+    monthlyRevenue,
+  };
+};
+
+
+const transcation = async({month}: monthParams) => {
+  const transcation = await prisma.transaction.findMany({
+    take: 5,                            
+    orderBy: { createdAt: 'desc' },   
+  })
+
+  if(!transcation){
+    throw new ApiError(httpStatus.NOT_FOUND, "Transcation not found")
+  }
+
+  return {transcation};
+}
+
 export const UtilsService = {
   getAdminDashboardData,
+  getDashboardWallet,
+  transcation
 };

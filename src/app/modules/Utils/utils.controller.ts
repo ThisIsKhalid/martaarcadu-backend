@@ -25,7 +25,45 @@ const getAdminDashboardData = catchAsync(
     });
   }
 );
+ 
+const getDashboardWallet = catchAsync(
+  async (req: Request, res: Response) => {
+    const { month, year } = req.params;
+
+    const result = await UtilsService.getDashboardWallet({
+      month: Number(month),
+      year: Number(year),
+    });
+
+    sendResponse(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: "Dashboard wallet retrieved successfully",
+      data: result,
+    });
+  }
+);
+
+
+const getTransaction = catchAsync(
+  async (req: Request, res: Response) => {
+    const { month } = req.params;
+
+    const result = await UtilsService.transcation({
+      month: Number(month)
+    });
+
+    sendResponse(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: "Dashboard transaction retrieved successfully",
+      data: result,
+    });
+  }
+);
 
 export const UtilsController = {
   getAdminDashboardData,
+  getDashboardWallet,
+  getTransaction
 };
