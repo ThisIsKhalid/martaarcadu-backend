@@ -13,6 +13,22 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
     },
   });
 
+  const totalProducts = await prisma.product.count({
+    where: {
+      isVisible: true
+    }
+  })
+
+
+  const revinue = await prisma.order.aggregate({
+    _sum: {
+      totalPrice: true
+    },
+    where: {
+      paymentStatus: "COMPLETED"
+    }
+  })
+
   // 2. Get sales analytics data for the current week of the specified month/year
   const now = new Date();
   const targetDate = new Date(year, month - 1, 1); // month is 0-indexed in JS
@@ -103,6 +119,8 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
 
   return {
     totalPartners,
+    revinue,
+    totalProducts,
     salesAnalytics,
     recentOrders,
   };
