@@ -44,9 +44,10 @@ const deleteOrder = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllOrders = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ["searchTerm", "date"]);
   const options = pick(req.query, paginationFields);
 
-  const orders = await OrderService.getAllOrders(options);
+  const orders = await OrderService.getAllOrders(filters,options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

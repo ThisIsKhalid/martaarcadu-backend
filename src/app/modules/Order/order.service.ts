@@ -6,6 +6,7 @@ import { IPaginationOptions } from "../../../interfaces/paginations";
 import prisma from "../../../shared/prisma";
 import { PaymentService } from "../Payment/payment.service";
 import { IOrder } from "./order.interface";
+import { Prisma } from "@prisma/client";
 
 const createOrder = async (userId: string, orderData: IOrder) => {
   const isUser = await prisma.user.findUnique({
@@ -138,11 +139,49 @@ const deleteOrder = async (id: string) => {
   });
 };
 
-const getAllOrders = async (options: IPaginationOptions) => {
+const getAllOrders = async (  filters: {
+  searchTerm?: string;
+  date?: string;
+},
+options: IPaginationOptions) => {
+  const { searchTerm, date } = filters;
   const { page, skip, limit, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(options);
 
-  const orders = await prisma.order.findMany({
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: ["country", "address", "city"].map((field) => ({
+        [field]: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+    // Add date filter (only if a date is provided)
+    if (date) {
+      const targetDate = new Date(date);
+      const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0));
+      const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999));
+  
+      andConditions.push({
+        createdAt: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
+      });
+    }
+
+  const whereConditions: Prisma.OrderWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const order = await prisma.order.findMany({
+    where: {
+      ...whereConditions,
+    },
     skip,
     take: limit,
     orderBy:
@@ -153,7 +192,11 @@ const getAllOrders = async (options: IPaginationOptions) => {
           },
   });
 
-  const total = await prisma.order.count();
+  const total = await prisma.order.count({
+    where: {
+      ...whereConditions,
+    },
+  });
 
   return {
     meta: {
@@ -161,7 +204,7 @@ const getAllOrders = async (options: IPaginationOptions) => {
       limit,
       total,
     },
-    data: orders,
+    data: order,
   };
 };
 
