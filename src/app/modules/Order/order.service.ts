@@ -208,17 +208,46 @@ options: IPaginationOptions) => {
   };
 };
 
-const getOrderById = async (id: string) => {
-  const order = await prisma.order.findUnique({
-    where: { id },
+// const getOrderById = async (id: string) => {
+//   const order = await prisma.order.findUnique({
+//     where: { id },
+//   });
+
+//   if (!order) {
+//     throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
+//   }
+
+//   return order;
+// };
+
+export const getOrderById = async (orderId: string) => {
+  const order = await prisma.order.findUnique({ where: { id: orderId } });
+  if (!order) throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+
+  // Make sure you have an actual array here:
+  const itemsRaw = order.products;
+  const items: { productId: string; quantity: number }[] =
+    typeof itemsRaw === 'string'
+      ? JSON.parse(itemsRaw)
+      : (itemsRaw as any[]);
+
+  // Now items.map will work:
+  const products = await prisma.product.findMany({
+    where: { id: { in: items.map(i => i.productId) } },
   });
 
-  if (!order) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
-  }
+  const product =  items.map(({ productId, quantity }) => {
+    const prod = products.find(p => p.id === productId)!;
+    return { ...prod, quantity };
+  });
 
-  return order;
+  return {
+    order,
+    product
+  }
 };
+
+
 
 export const OrderService = {
   createOrder,

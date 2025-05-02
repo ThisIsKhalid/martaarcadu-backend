@@ -1099,3 +1099,15 @@
 {"level":"info","message":"Incoming request: GET /api/v1/order?date=2025-05-01","service":"default-service-name","timestamp":"2025-05-02 15:14:59"}
 {"level":"info","message":"Incoming request: GET /api/v1/order?date=2025-05-02","service":"default-service-name","timestamp":"2025-05-02 15:15:04"}
 {"level":"info","message":"Incoming request: GET /api/v1/order?date=2025-05-02&searchTerm=Dhaka","service":"default-service-name","timestamp":"2025-05-02 15:15:08"}
+{"level":"info","message":"Incoming request: GET /api/v1/order?date=2025-05-02&searchTerm=Dhaka","service":"default-service-name","timestamp":"2025-05-02 15:39:01"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 15:39:08"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 15:40:00"}
+{"level":"info","message":"Incoming request: GET /api/v1/order?date=2025-05-02&searchTerm=Dhaka","service":"default-service-name","timestamp":"2025-05-02 15:48:45"}
+{"level":"info","message":"Incoming request: GET /api/v1/order","service":"default-service-name","timestamp":"2025-05-02 15:48:51"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 15:49:03"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 16:00:13"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 16:18:59"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 16:19:23"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 16:20:30"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 16:21:28"}
+{"level":"info","message":"Incoming request: GET /api/v1/order/cma6jmjas0007tcgom656mu53","service":"default-service-name","timestamp":"2025-05-02 16:45:42"}
