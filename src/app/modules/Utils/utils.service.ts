@@ -165,11 +165,6 @@ const getAdminDashboardData = async ({ month, year }: DashboardParams) => {
 //   }
 // }
 
-interface DashboardParams {
-  month: number; // (not used here, but you can still accept it)
-  year: number;
-}
-
 interface MonthlyData {
   month: string;
   amount: number;
@@ -261,8 +256,7 @@ export const getDashboardWallet = async ({
 
 
 const transcation = async({month}: monthParams) => {
-  const transcation = await prisma.transaction.findMany({
-    take: 5,                            
+  const transcation = await prisma.transaction.findMany({                            
     orderBy: { createdAt: 'desc' },   
   })
 

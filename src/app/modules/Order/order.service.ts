@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiErrors";
 import { paginationHelpers } from "../../../helpars/paginationHelper";
@@ -6,7 +7,6 @@ import { IPaginationOptions } from "../../../interfaces/paginations";
 import prisma from "../../../shared/prisma";
 import { PaymentService } from "../Payment/payment.service";
 import { IOrder } from "./order.interface";
-import { Prisma } from "@prisma/client";
 
 const createOrder = async (userId: string, orderData: IOrder) => {
   const isUser = await prisma.user.findUnique({
@@ -107,6 +107,13 @@ const confirmOrder = async (orderId: string, status: boolean) => {
     throw new ApiError(httpStatus.BAD_REQUEST, "Payment capture failed");
   }
 
+  await prisma.transaction.create({
+    data: {
+      transactionId: order?.paymentIntentId,
+      amount: order?.totalPrice,
+    },
+  });
+
   return await prisma.order.update({
     where: {
       id: orderId,
@@ -139,11 +146,13 @@ const deleteOrder = async (id: string) => {
   });
 };
 
-const getAllOrders = async (  filters: {
-  searchTerm?: string;
-  date?: string;
-},
-options: IPaginationOptions) => {
+const getAllOrders = async (
+  filters: {
+    searchTerm?: string;
+    date?: string;
+  },
+  options: IPaginationOptions
+) => {
   const { searchTerm, date } = filters;
   const { page, skip, limit, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(options);
@@ -161,19 +170,19 @@ options: IPaginationOptions) => {
     });
   }
 
-    // Add date filter (only if a date is provided)
-    if (date) {
-      const targetDate = new Date(date);
-      const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0));
-      const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999));
-  
-      andConditions.push({
-        createdAt: {
-          gte: startOfDay,
-          lte: endOfDay,
-        },
-      });
-    }
+  // Add date filter (only if a date is provided)
+  if (date) {
+    const targetDate = new Date(date);
+    const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999));
+
+    andConditions.push({
+      createdAt: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    });
+  }
 
   const whereConditions: Prisma.OrderWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
@@ -222,32 +231,28 @@ options: IPaginationOptions) => {
 
 export const getOrderById = async (orderId: string) => {
   const order = await prisma.order.findUnique({ where: { id: orderId } });
-  if (!order) throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+  if (!order) throw new ApiError(httpStatus.NOT_FOUND, "Order not found");
 
   // Make sure you have an actual array here:
   const itemsRaw = order.products;
   const items: { productId: string; quantity: number }[] =
-    typeof itemsRaw === 'string'
-      ? JSON.parse(itemsRaw)
-      : (itemsRaw as any[]);
+    typeof itemsRaw === "string" ? JSON.parse(itemsRaw) : (itemsRaw as any[]);
 
   // Now items.map will work:
   const products = await prisma.product.findMany({
-    where: { id: { in: items.map(i => i.productId) } },
+    where: { id: { in: items.map((i) => i.productId) } },
   });
 
-  const product =  items.map(({ productId, quantity }) => {
-    const prod = products.find(p => p.id === productId)!;
+  const product = items.map(({ productId, quantity }) => {
+    const prod = products.find((p) => p.id === productId)!;
     return { ...prod, quantity };
   });
 
   return {
     order,
-    product
-  }
+    product,
+  };
 };
-
-
 
 export const OrderService = {
   createOrder,

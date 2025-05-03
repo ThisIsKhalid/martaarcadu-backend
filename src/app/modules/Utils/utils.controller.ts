@@ -10,7 +10,7 @@ import { UtilsService } from "./utils.service";
 
 const getAdminDashboardData = catchAsync(
   async (req: Request, res: Response) => {
-    const { month, year } = req.params;
+    const { month, year } = req.query;
 
     const result = await UtilsService.getAdminDashboardData({
       month: Number(month),
@@ -28,7 +28,7 @@ const getAdminDashboardData = catchAsync(
  
 const getDashboardWallet = catchAsync(
   async (req: Request, res: Response) => {
-    const { month, year } = req.params;
+    const { month, year } = req.query;
 
     const result = await UtilsService.getDashboardWallet({
       month: Number(month),
@@ -47,7 +47,7 @@ const getDashboardWallet = catchAsync(
 
 const getTransaction = catchAsync(
   async (req: Request, res: Response) => {
-    const { month } = req.params;
+    const { month } = req.query;
 
     const result = await UtilsService.transcation({
       month: Number(month)

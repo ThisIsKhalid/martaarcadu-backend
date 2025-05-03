@@ -4,12 +4,12 @@ import { UtilsController } from "./utils.controller";
 const router = express.Router();
 
 router.get(
-  "/admin-dashboard/:month/:year",
+  "/admin-dashboard",
   UtilsController.getAdminDashboardData
 );
 
-router.get("/admin-dashboard-wallet/:month/:year", UtilsController.getDashboardWallet);
+router.get("/admin-dashboard-wallet", UtilsController.getDashboardWallet);
 
-router.get("/admin-dashboard-transaction/:month", UtilsController.getTransaction);
+router.get("/admin-dashboard-transaction", UtilsController.getTransaction);
 
 export const UtilsRoutes = router;
